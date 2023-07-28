@@ -1,4 +1,5 @@
-export async function addCoupon(code: number, store: { trigger: (arg0: { message: any; background: string; }) => void; }){
+import { cartStore } from "$lib/store/store";
+export async function addCoupon(code: string, store: { trigger: (arg0: { message: any; background: string; }) => void; }): Promise<{ error: any; } | undefined>{
     try{
         const res = await fetch('/api/cart/coupons/add-coupon', {
             method: 'POST',
@@ -18,6 +19,7 @@ export async function addCoupon(code: number, store: { trigger: (arg0: { message
                 background: "variant-filled-error"
             })
         } else {
+            cartStore.set(await data)
             store.trigger({
                 message: `Coupon ${code} activated`,
                 background: "variant-filled-primary"})

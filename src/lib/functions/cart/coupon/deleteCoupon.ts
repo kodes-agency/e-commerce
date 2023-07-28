@@ -1,4 +1,6 @@
-export async function addCoupon(code: number, store: { trigger: (arg0: { message: any; background: string; }) => void; }){
+import { cartStore } from "$lib/store/store";
+
+export async function deleteCoupon(code: number, store: { trigger: (arg0: { message: any; background: string; }) => void; }){
     try{
         const res = await fetch('/api/cart/coupons/delete-coupon', {
             method: 'POST',
@@ -18,9 +20,10 @@ export async function addCoupon(code: number, store: { trigger: (arg0: { message
                 background: "variant-filled-error"
             })
         } else {
+            cartStore.set(await data)
             store.trigger({
                 message: `Coupon ${code} removed`,
-                background: "variant-filled-primary"})
+                background: "variant-filled-warning"})
         }
         return
 

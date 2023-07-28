@@ -1,4 +1,4 @@
-export async function getCart() {
+export async function getCart(): Promise<any | void> {
     try{
       const res = await fetch("/api/cart", {
         method: "GET",
