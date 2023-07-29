@@ -4,18 +4,10 @@
     export let cart: any;
   </script>
   
-  <div class="cart">
+  <div class="flex flex-col">
     {#each cart.items as item}
     <div transition:slide>
       <SingleCartItem {item} />
     </div>
     {/each}
   </div>
-  
-  <style>
-    .cart {
-      display: flex;
-      flex-direction: column;
-    }
-  </style>
-  

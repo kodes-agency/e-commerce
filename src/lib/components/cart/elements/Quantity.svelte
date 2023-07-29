@@ -4,11 +4,6 @@
   export let max: number;
   export let currentQuantity: number;
   // export let variationChange: boolean;
-  export let border = "1px solid black";
-  export let minHeight = "40px";
-  export let minWidth = "40px";
-  export let buttonHeight = "20px";
-  export let buttonWidth = "30px";
 
   const dispatch = createEventDispatcher();
 
@@ -33,16 +28,17 @@
   }
 </script>
 
-<div class="container">
-  <p>{currentQuantity}</p>
-  <div class="buttons-wrapper">
+<div class="flex items-center border border-black h-10">
+  <p class="h-10 w-10 flex justify-center items-center">{currentQuantity}</p>
+  <div
+    class="border-l border-black h-full w-8 flex flex-col justify-around items-center"
+  >
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <button
       id="increase"
-      class="arrows"
+      class="flex items-center justify-center w-full h-full hover:bg-amber-300"
       disabled={max == currentQuantity}
       on:click={adjustQuantity("increase", min, max)}
-      style="border: {border}; min-height: {buttonHeight}; min-width: {buttonWidth}"
     >
       <svg
         width="10"
@@ -60,10 +56,9 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <button
       id="decrease"
-      class="arrows"
+      class="flex items-center justify-center border-t border-black w-full h-full hover:bg-amber-300"
       disabled={min == currentQuantity}
       on:click={adjustQuantity("decrease", min, max)}
-      style="border: {border}; min-height: {buttonHeight}; min-width: {buttonWidth}"
     >
       <svg
         width="10"
@@ -80,41 +75,3 @@
     </button>
   </div>
 </div>
-
-<style>
-  .container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .buttons-wrapper {
-    margin-left: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .arrows {
-    background-color: transparent;
-    border-radius: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .arrows:hover {
-    background-color: var(--hover-color-dark);
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-
-  .arrows:hover path {
-    fill: white;
-  }
-
-  #increase {
-    border-bottom: none !important;
-  }
-</style>

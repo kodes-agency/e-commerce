@@ -6,10 +6,3 @@
 </script>
 
 <p class={style}>{priceFormat(price)}{currency}</p>
-
-<style>
-  p {
-    font-size: 14px;
-    white-space: nowrap;
-  }
-</style>

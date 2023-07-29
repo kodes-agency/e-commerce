@@ -1,11 +1,12 @@
 <script lang="ts">
   export let variation: string;
+  export let style: string;
 </script>
 
 {#if !variation}
-  <p>/</p>
+  <p class={style}>/</p>
 {:else}
-  <p>{variation}</p>
+  <p class={style}>{variation}</p>
 {/if}
 
 <style>

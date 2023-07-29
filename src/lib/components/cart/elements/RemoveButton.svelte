@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  export let style: string;
   const dispatch = createEventDispatcher();
 
   function clickHandler() {
@@ -7,7 +8,7 @@
   }
 </script>
 
-<button on:click={clickHandler}>
+<button on:click={clickHandler} class={style}>
   <svg
     width="11"
     height="11"
@@ -21,19 +22,3 @@
     />
   </svg>
 </button>
-
-<style>
-  button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    height: 17px;
-    width: 17px;
-    border-radius: 50%;
-    transition: all 0.3s;
-  }
-
-  button:hover {
-    background: var(--yellow-color);
-  }
-</style>

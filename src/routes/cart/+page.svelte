@@ -9,8 +9,8 @@
   $cartStore = getCart();
 </script>
 
-<section>
-  <h1>Cart</h1>
+<section class="m-16">
+  <h1 class="text-2xl font-bold mb-10">Cart</h1>
   {#await $cartStore}
     <p>Loading ...</p>
   {:then cart}
@@ -19,8 +19,8 @@
         <p>Cart is empty</p>
       {:else if cart.items}
         <CartGrid {cart} />
-        <div in:slide>
-          <Line height="2px" margin="40px 0px 30px 0px" />
+        <Line/>
+        <div in:slide class="flex flex-row justify-between">
             <Coupon {cart} />
             <Totals {cart} currency={cart.totals.currency_suffix} />
         </div>
@@ -29,8 +29,3 @@
   {/await}
 </section>
 
-<style>
-  section {
-    margin-top: 50px;
-  }
-</style>

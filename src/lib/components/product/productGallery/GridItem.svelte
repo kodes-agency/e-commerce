@@ -1,14 +1,13 @@
 <script lang="ts">
-  import ProductVariations from "$lib/components/product/global/ProductVariations.svelte";
-  import Img from "$lib/components/product/productGallery/elements/Img.svelte";
-  import Name from "$lib/components/product/productGallery/elements/Name.svelte";
-  import Price from "$lib/components/product/productGallery/elements/Price.svelte";
-  import Added from "$lib/components/product/productGallery/elements/Added.svelte";
-  import Description from "$lib/components/product/productGallery/elements/Description.svelte";
-  import Button from "$lib/components/global/Button.svelte";
+  import ProductVariations from "../global/ProductVariations.svelte";
+  import Img from "./elements/Img.svelte";
+  import Name from "./elements/Name.svelte";
+  import Price from "./elements/Price.svelte";
+  import Added from "./elements/Added.svelte";
+  import Description from "./elements/Description.svelte";
+  import Button from "../../global/Button.svelte";
   import { toastStore } from "@skeletonlabs/skeleton";
   import { addItem } from "$lib/functions/cart/item/addCartItem.js";
-  import type { Order } from "$lib/types/types.js";
 
   export let name: string;
   export let price: number;
@@ -23,8 +22,9 @@
   export let quantity = 1;
 
   let ordered = false;
+
   let variationChange: boolean;
-  let order: Order = {
+  $: order = {
     id: id,
     name: name,
     quantity: quantity,
@@ -33,12 +33,14 @@
 
 <article class="flex flex-col justify-between border border-black p-5">
   <div>
-    <Img {src} {alt} {sizes} style="" />
-    <div class="flex gap-5 justify-between">
-      <Name {name} style="" />
-      <Price {price} {currency} style="" />
+    <div class="flex items-center justify-center">
+      <Img {src} {alt} {sizes} style="w-72"/>
     </div>
-    <Description {shortDescription} style="" />
+    <div class="flex gap-5 justify-between">
+      <Name {name} style="font-bold text-sm"/>
+      <Price {price} {currency} style="whitespace-nowrap text-sm" />
+    </div>
+    <Description {shortDescription} style="text-sm" />
     <ProductVariations
       {attributes}
       {variations}

@@ -8,37 +8,15 @@
   export let currency = "";
 </script>
 
-<div class="totals-wrapper">
-  <p class="heading">{heading}</p>
-  <div class="totals">
-    <p class="bold">{priceFormat(cart.totals.total_items)}{currency}</p>
+<div class="flex flex-row">
+  <p class="mr-8">{heading}</p>
+  <div class="flex flex-col items-end">
+    <p class="font-bold">{priceFormat(cart.totals.total_items)}{currency}</p>
     {#if cart.coupons.length > 0}
       <p>-{priceFormat(cart.totals.total_discount)}{currency}</p>
     {/if}
-    <Line margin="20px 0 10px 0" height="2px" />
-    <p class="bold">{priceFormat(cart.totals.total_price)}{currency}</p>
+    <Line style="w-full h-px bg-black my-2"/>
+    <p class="font-bold mb-10">{priceFormat(cart.totals.total_price)}{currency}</p>
     <Button href="/checkout" text={checkoutButton} type="link" />
   </div>
 </div>
-
-<style>
-  .totals-wrapper {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .heading {
-    margin: 0 20px 0 0;
-  }
-
-  .totals {
-    min-width: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-  }
-
-  .bold {
-    font-weight: bold;
-  }
-</style>

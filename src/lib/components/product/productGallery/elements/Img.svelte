@@ -5,12 +5,4 @@
   export let style: string;
 </script>
 
-<img {src} {alt} {sizes} class={style} />
-
-<style>
-  img {
-    height: 180px;
-    width: auto;
-    object-fit: contain;
-  }
-</style>
+<img {src} {alt} {sizes} class={style}/>

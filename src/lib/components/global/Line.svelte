@@ -1,15 +1,5 @@
 <script lang="ts">
-  export let width = "100%";
-  export let height = "1px";
-  export let color = "var(--black-color)";
-  export let margin = "0px";
+  export let style: string = "w-full h-px bg-black mb-10 mt-5"
 </script>
 
-<div
-  style="
-    width: {width};
-    height: {height};
-    background-color: {color};
-    margin: {margin};
-    "
-/>
+<div class={style} />
