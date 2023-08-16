@@ -1,7 +1,7 @@
 <script lang="ts">
   import { priceFormat } from "$lib/functions/global/priceFormat.js";
   import Line from "$lib/components/global/Line.svelte";
-  import Button from "../global/Button.svelte";
+  import Button from "../../global/Button.svelte";
   export let cart: any;
   export let heading = "Total";
   export let checkoutButton = "checkout";

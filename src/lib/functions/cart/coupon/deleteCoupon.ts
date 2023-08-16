@@ -13,6 +13,7 @@ export async function deleteCoupon(code: number, store: { trigger: (arg0: { mess
                 }
             )
         })
+
         const data = await res.json()
         if (data.error || data.message) {
             store.trigger({

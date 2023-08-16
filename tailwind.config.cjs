@@ -11,8 +11,11 @@ const config = {
   theme: {
     extend: {},
   },
-
-  plugins: [...require("@skeletonlabs/skeleton/tailwind/skeleton.cjs")()],
+  plugins: [
+    ...require("@skeletonlabs/skeleton/tailwind/skeleton.cjs")(),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/container-queries')
+  ],
 };
 
 module.exports = config;

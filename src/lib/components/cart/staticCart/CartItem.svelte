@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Quantity from "$lib/components/cart/elements/Quantity.svelte";
-  import RemoveButton from "$lib/components/cart/elements/RemoveButton.svelte";
-  import Name from "$lib/components/cart/elements/Name.svelte";
-  import Price from "$lib/components/cart/elements/Price.svelte";
-  import Variation from "$lib/components/cart/elements/Variation.svelte";
-  import Img from "$lib/components/cart/elements/Img.svelte";
+  import Quantity from "./elements/Quantity.svelte";
+  import RemoveButton from "./elements/RemoveButton.svelte";
+  import Name from "./elements/Name.svelte";
+  import Price from "./elements/Price.svelte";
+  import Variation from "./elements/Variation.svelte";
+  import Img from "./elements/Img.svelte";
   import { updateItem, deleteItem } from "$lib/functions/cart/cartFunctions.js";
   import { toastStore } from "@skeletonlabs/skeleton";
 

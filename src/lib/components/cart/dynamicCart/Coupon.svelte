@@ -1,12 +1,9 @@
 <script lang="ts">
-  import { cartStore } from "$lib/store/store.js";
   import {
     addCoupon,
     deleteCoupon,
-    getCart,
   } from "$lib/functions/cart/cartFunctions.js";
   import { toastStore } from "@skeletonlabs/skeleton";
-
   export let cart: any;
   export let text = "Got a coupon code?";
   export let placeholder = "INSERT IT HERE";
@@ -19,37 +16,43 @@
   }
 </script>
 
-<div>
+<div class="border-t border-gray-200 px-4 py-2 sm:px-6 @container">
   <form
-  class="flex flex-row justify-between gap-4"
+    class="flex-col justify-between"
     on:submit={async (event) => {
       event.preventDefault();
       await addCoupon(couponCode, toastStore);
     }}
   >
-    <label for="coupon">{text}</label>
-    <input
-      class="bg-transparent px-2 active:bg-transparent outline-1 outline-amber-300"
-      bind:value={couponCode}
-      type="text"
-      name="coupon"
-      id="coupon"
-      {placeholder}
-      on:input={showButton}
-    />
-    <button class="opacity-0 transition duration-500 font-bold hover:bg-amber-300 px-5" bind:this={button} type="submit" name="add-coupon"
-      >Add coupon</button
-    >
+    <div class="flex space-x-1 items-center">
+      <label for="coupon" class="text-sm @sm:text-base">{text}</label>
+      <input
+        class="bg-transparent text-sm @sm:text-base active:bg-transparent active:outline-1 outline-amber-300 border-none p-0 m-0 w-32"
+        bind:value={couponCode}
+        type="text"
+        name="coupon"
+        id="coupon"
+        {placeholder}
+        on:input={showButton}
+      />
+      <button
+        class="opacity-0 whitespace-nowrap text-sm @sm:text-base transition duration-500 font-bold"
+        bind:this={button}
+        type="submit"
+        name="add-coupon">Add</button
+      >
+    </div>
   </form>
   <div class="">
     {#if cart.coupons.length > 0}
       {#each cart.coupons as coupon}
-        <div class="flex flex-row items-center gap-2">
+        <div class="flex flex-row items-center space-x-2">
           <p class="font-bold">{coupon.code}</p>
           <button
             name="delete-coupon"
             class="hover:bg-amber-300 p-1 rounded-full"
-            on:click={async () => {
+            on:click={async (event) => {
+              event.preventDefault();
               await deleteCoupon(coupon.code, toastStore);
             }}
           >

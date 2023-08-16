@@ -6,7 +6,7 @@ export async function getCart(): Promise<any | void> {
           "Content-Type": "application/json",
         },
       });
-      return res.json();
+      return await res.json();
     } catch(er: any){
       return {error: er.message}
     }

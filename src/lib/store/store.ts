@@ -1,2 +1,3 @@
 import { writable } from 'svelte/store'
-export const cartStore = writable()
+export const cartStore: any = writable()
+export const isCartOpen = writable(false)
