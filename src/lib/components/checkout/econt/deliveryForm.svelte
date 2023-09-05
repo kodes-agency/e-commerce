@@ -1,11 +1,7 @@
 <script lang="ts">
   import RadioButtion from "$lib/components/global/RadioButtion.svelte";
-  import { onMount } from "svelte";
   import Select from "svelte-select";
-  import { get } from "svelte/store";
   import { slide } from "svelte/transition";
-
-  let searchable = true;
 
   let officeDelivery: 1 | 0;
 
@@ -109,9 +105,6 @@
     }
   };
 
-  function handle() {
-    console.log("dsadasdas");
-  }
 </script>
 
 <form class="container">

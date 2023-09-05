@@ -1,12 +1,21 @@
-<script>
+<script lang="ts">
   import "@skeletonlabs/skeleton/themes/theme-skeleton.css";
   import "@skeletonlabs/skeleton/styles/skeleton.css";
   import "../app.postcss";
-  import { Toast } from "@skeletonlabs/skeleton";
+  import { Toast, Modal, modalStore } from "@skeletonlabs/skeleton";
   import { cartStore } from "$lib/store/store";
   import { isCartOpen } from "$lib/store/store";
   import { getCart } from "$lib/functions/cart/cartFunctions";
   import DemoCart from "$lib/components/cart/modalCart/demoCart.svelte";
+  import CardPayment from "$lib/components/checkout/CardPayment.svelte";
+  import type { ModalComponent } from "@skeletonlabs/skeleton";
+
+
+  const modalComponentRegistry: Record<string, ModalComponent> = {
+    paymentModal: { ref: CardPayment}
+  }
+  
+
   $cartStore = getCart();
 
   function openCart() {
@@ -16,6 +25,7 @@
 </script>
 
 <main>
+  <Modal components={modalComponentRegistry}/>
   <nav class="bg-white h-10 flex items-center justify-between px-4 fixed top-0 w-full z-10">
     <div>
       <a href="/">Home</a>
