@@ -33,17 +33,21 @@ export const load = async ({ fetch, cookies }) => {
     paymentMethods: [
       {
         id: "cod",
-        label: "Pay on delivery",
+        label: "Наложен платеж",
+        text: "Плащането се извършва в брой или с карта при получаване на продукта.",
         available: true,
       },
       {
         id: "alg_custom_gateway_1",
-        label: "Pay with credit/debit card",
+        label: "Плащане с карта",
+        text: "Плащане с дебитна или кредитна карта посредством платформа за разплащания Stripe.",
         available: true,
       },
     ]
   };
 };
+
+
 
 export const actions = {
   default: async ({ cookies, fetch, request }) => {
@@ -98,63 +102,65 @@ export const actions = {
       paymentMethod: formData.get("payment_method"),
     }
 
-    const headers: any = { "Content-Type": "application/json" };
+    console.log(order)
 
-    cookies.getAll().forEach((cookie) => {
-      headers[cookie.name] = cookie.value;
-    });
+    // const headers: any = { "Content-Type": "application/json" };
 
-    const responseOrder: any = await fetch(
-      "https://shop.fragment.bg/wp-json/wc/store/v1/checkout",
-      {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(order),
-      }
-    );
+    // cookies.getAll().forEach((cookie) => {
+    //   headers[cookie.name] = cookie.value;
+    // });
 
-    const data: any = await responseOrder.json();
+    // const responseOrder: any = await fetch(
+    //   "https://shop.fragment.bg/wp-json/wc/store/v1/checkout",
+    //   {
+    //     method: "POST",
+    //     headers: headers,
+    //     body: JSON.stringify(order),
+    //   }
+    // );
 
-    let url = `/checkout/success?first_name=${onSuccessDate.first_name}&last_name=${onSuccessDate.last_name}&order_id=231&email=${onSuccessDate.email}&payment_method=${onSuccessDate.paymentMethod}`
+    // const data: any = await responseOrder.json();
 
-    if(data.status == "completed" || data.status == "processing"){
-      cartStore.set([])
-      throw redirect(301, url)
-    }
+    // let url = `/checkout/success?first_name=${onSuccessDate.first_name}&last_name=${onSuccessDate.last_name}&order_id=231&email=${onSuccessDate.email}&payment_method=${onSuccessDate.paymentMethod}`
 
-    if (data.status === "completed") {
-      const removeItems = await fetch(
-        "https://shop.fragment.bg/wp-json/wc/store/v1/cart/items",
-        {
-          method: "DELETE",
-          headers: headers,
-        }
-      );
-    }
+    // if(data.status == "completed" || data.status == "processing"){
+    //   cartStore.set([])
+    //   throw redirect(301, url)
+    // }
 
-    const headerCookies: any = set_cookie_parser.parse(
-      set_cookie_parser.splitCookiesString(
-        responseOrder.headers.get("set-cookie")
-      )
-    );
+    // if (data.status === "completed") {
+    //   const removeItems = await fetch(
+    //     "https://shop.fragment.bg/wp-json/wc/store/v1/cart/items",
+    //     {
+    //       method: "DELETE",
+    //       headers: headers,
+    //     }
+    //   );
+    // }
 
-    headerCookies.forEach((cookie: any) => {
-      cookies.set(cookie.name, cookie.value, {
-        path: cookie.path || "/",
-        expires: cookie?.expires,
-        maxAge: cookie?.maxAge || 60 * 60 * 24 * 7,
-        secure: false,
-        httpOnly: true,
-      });
-    });
+    // const headerCookies: any = set_cookie_parser.parse(
+    //   set_cookie_parser.splitCookiesString(
+    //     responseOrder.headers.get("set-cookie")
+    //   )
+    // );
 
-    cookies.set("cart-token", responseOrder.headers.get("cart-token"), {
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-      secure: false,
-      httpOnly: true,
-      sameSite: "lax",
-    });
+    // headerCookies.forEach((cookie: any) => {
+    //   cookies.set(cookie.name, cookie.value, {
+    //     path: cookie.path || "/",
+    //     expires: cookie?.expires,
+    //     maxAge: cookie?.maxAge || 60 * 60 * 24 * 7,
+    //     secure: false,
+    //     httpOnly: true,
+    //   });
+    // });
+
+    // cookies.set("cart-token", responseOrder.headers.get("cart-token"), {
+    //   path: "/",
+    //   maxAge: 60 * 60 * 24 * 7,
+    //   secure: false,
+    //   httpOnly: true,
+    //   sameSite: "lax",
+    // });
 
     return { status: 200};
   },

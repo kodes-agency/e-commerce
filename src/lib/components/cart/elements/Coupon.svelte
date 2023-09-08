@@ -5,8 +5,8 @@
   } from "$lib/functions/cart/cartFunctions.js";
   import { toastStore } from "@skeletonlabs/skeleton";
   export let cart: any;
-  export let text = "Got a coupon code?";
-  export let placeholder = "INSERT IT HERE";
+  export let text = "Имате код за отстъпка?";
+  export let placeholder = "ВЪВЕДЕТЕ ТУК";
 
   let button: HTMLButtonElement;
   let couponCode: string;
@@ -16,7 +16,7 @@
   }
 </script>
 
-<div class="border-t border-gray-200 px-4 py-2 sm:px-6 @container">
+<div class="border-t border-gray-200 py-2 px-1 sm:px-4 @container">
   <form
     class="flex-col justify-between"
     on:submit={async (event) => {
@@ -24,30 +24,32 @@
       await addCoupon(couponCode, toastStore);
     }}
   >
-    <div class="flex space-x-1 items-center">
-      <label for="coupon" class="text-sm @sm:text-base">{text}</label>
-      <input
-        class="bg-transparent text-sm @sm:text-base active:bg-transparent active:outline-1 outline-amber-300 border-none p-0 m-0 w-32"
-        bind:value={couponCode}
-        type="text"
-        name="coupon"
-        id="coupon"
-        {placeholder}
-        on:input={showButton}
-      />
-      <button
-        class="opacity-0 whitespace-nowrap text-sm @sm:text-base transition duration-500 font-bold"
-        bind:this={button}
-        type="submit"
-        name="add-coupon">Add</button
-      >
+    <div class="flex flex-col lg:flex-row space-x-1 lg:items-center">
+      <label for="coupon" class="text-sm lg:text-base whitespace-nowrap">{text}</label>
+      <div class="flex justify-between w-full">
+        <input
+          class="bg-transparent text-sm active:bg-transparent active:outline-1 outline-amber-300 border-none p-0 m-0 w-28"
+          bind:value={couponCode}
+          type="text"
+          name="coupon"
+          id="coupon"
+          {placeholder}
+          on:input={showButton}
+        />
+        <button
+          class="opacity-0 whitespace-nowrap text-sm lg:text-base transition duration-500 font-medium text-indigo-600 hover:text-indigo-500"
+          bind:this={button}
+          type="submit"
+          name="add-coupon">Добави</button
+        >
+      </div>
     </div>
   </form>
   <div class="">
     {#if cart.coupons.length > 0}
       {#each cart.coupons as coupon}
         <div class="flex flex-row items-center space-x-2">
-          <p class="font-bold">{coupon.code}</p>
+          <p class="text-base font-bold">{coupon.code}</p>
           <button
             name="delete-coupon"
             class="hover:bg-amber-300 p-1 rounded-full"

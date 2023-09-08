@@ -1,6 +1,6 @@
 <script lang="ts">
   import { priceFormat } from "$lib/functions/global/priceFormat";
-  import CartItem from "./demoCartItem.svelte";
+  import CartItem from "$lib/components/cart/CartItem.svelte";
   import { isCartOpen } from "$lib/store/store";
   import { gsap } from "gsap";
   import { onMount } from "svelte";
@@ -35,15 +35,9 @@
     animationTl.to(panel, { x: 0, duration: 0.5, ease: "power2.inOut" }, "-=0.5");
   })
 
-  $: isCartOpen.subscribe((value) => {
+  $: isCartOpen.subscribe(() => {
     toggleAnimation()
   });
-
-
-
-
-
-  
 </script>
 
 <div
@@ -53,16 +47,6 @@
   aria-modal="true"
   bind:this={cartModal}
 >
-  <!--
-      Background backdrop, show/hide based on slide-over state.
-  
-      Entering: "ease-in-out duration-500"
-        From: "opacity-0"
-        To: "opacity-100"
-      Leaving: "ease-in-out duration-500"
-        From: "opacity-100"
-        To: "opacity-0"
-    -->
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div bind:this={backdrop} class="fixed inset-0 bg-gray-500 opacity-0 bg-opacity-75 transition-opacity" />
@@ -73,16 +57,6 @@
       <div
         class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-4 sm:pl-10"
       >
-        <!--
-            Slide-over panel, show/hide based on slide-over state.
-  
-            Entering: "transform transition ease-in-out duration-500 sm:duration-700"
-              From: "translate-x-full"
-              To: "translate-x-0"
-            Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
-              From: "translate-x-0"
-              To: "translate-x-full"
-          -->
         <div bind:this={panel} class="pointer-events-auto w-screen max-w-md translate-x-full">
           <div
             class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl"
@@ -93,7 +67,7 @@
                   class="text-lg font-medium text-gray-900"
                   id="slide-over-title"
                 >
-                  Shopping cart
+                  Вашата количка
                 </h2>
                 <div class="ml-3 flex h-7 items-center">
                   <button
@@ -102,7 +76,7 @@
                     on:click={toggle}
                   >
                     <span class="absolute -inset-0.5" />
-                    <span class="sr-only">Close panel</span>
+                    <span class="sr-only">Затвори</span>
                     <svg
                       class="h-6 w-6"
                       fill="none"
@@ -137,30 +111,30 @@
               <div
                 class="flex justify-between text-base font-medium text-gray-900"
               >
-                <p>Subtotal</p>
-                <p>{priceFormat(cart.totals.total_price)}{cart.totals.currency_code}</p>
+                <p>Общо</p>
+                <p>{priceFormat(cart.totals.total_price)}{cart.totals.currency_suffix}</p>
               </div>
               <p class="mt-0.5 text-sm text-gray-500">
-                Shipping and taxes calculated at checkout.
+                Стойността на доставката и отстъпките се калкулират при приключване на поръчката.
               </p>
               <div class="mt-6">
                 <a
                   href="/checkout"
-                  class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                  >Checkout</a
+                  class="flex items-center justify-center border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                  >Поръчай</a
                 >
               </div>
               <div
                 class="mt-6 flex justify-center text-center text-sm text-gray-500"
               >
                 <p>
-                  or
+                  или
                   <button
                     type="button"
                     class="font-medium text-indigo-600 hover:text-indigo-500"
                     on:click={toggle}
                   >
-                    Continue Shopping
+                    Продължи с пазаруването
                     <span aria-hidden="true"> &rarr;</span>
                   </button>
                 </p>

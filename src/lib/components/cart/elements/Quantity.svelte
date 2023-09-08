@@ -28,17 +28,20 @@
   }
 </script>
 
-<div class="flex items-center border border-black h-10">
-  <p class="h-10 w-10 flex justify-center items-center">{currentQuantity}</p>
+<div class="flex items-center border border-zinc-300  h-10 sm:h-7">
+  <p class="h-10 w-10 sm:w-7 flex justify-center items-center">{currentQuantity}</p>
   <div
-    class="border-l border-black h-full w-8 flex flex-col justify-around items-center"
+    class="border-l border-zinc-300 h-full w-10 sm:w-7 flex flex-col justify-around items-center"
   >
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <button
       id="increase"
       class="flex items-center justify-center w-full h-full hover:bg-amber-300"
       disabled={max == currentQuantity}
-      on:click={adjustQuantity("increase", min, max)}
+      on:click={(event)=>{
+        event.preventDefault()
+        adjustQuantity("increase", min, max)
+      }}
     >
       <svg
         width="10"
@@ -56,9 +59,11 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <button
       id="decrease"
-      class="flex items-center justify-center border-t border-black w-full h-full hover:bg-amber-300"
+      class="flex items-center justify-center border-t border-zinc-300 w-full h-full hover:bg-amber-300"
       disabled={min == currentQuantity}
-      on:click={adjustQuantity("decrease", min, max)}
+      on:click={(event)=>{
+        event.preventDefault()
+        adjustQuantity("decrease", min, max)}}
     >
       <svg
         width="10"

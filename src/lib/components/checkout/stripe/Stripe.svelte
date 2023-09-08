@@ -1,10 +1,14 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
   import { loadStripe } from "@stripe/stripe-js";
   import { Elements, CardNumber, CardCvc, CardExpiry } from "svelte-stripe";
   import { onMount } from "svelte";
   import { PUBLIC_STRIPE_KEY } from "$env/static/public";
-  import { page } from "$app/stores";
+  import { cartStore } from "$lib/store/store";
+  import { priceFormat } from "$lib/functions/global/priceFormat";
+  import { SyncLoader } from 'svelte-loading-spinners'
+
+  let { totals } = $cartStore
+  console.log(totals)
 
   let stripe: any = null;
   let error: any = null;
@@ -45,7 +49,7 @@
     });
 
     // log results, for debugging
-    console.log(result.paymentIntent.id)
+    console.log(result)
 
 
     if (result.error) {
@@ -56,12 +60,12 @@
       // @ts-ignore
       document.forms["checkout-form"].elements["payment_id"].value = result.paymentIntent.id
       // @ts-ignore
-      document.forms["checkout-form"].submit()
+      // document.forms["checkout-form"].submit()
     }
   }
 </script>
 
-<div class="p-10 w-full">
+<div class="p-0 w-full">
   {#if stripe}
     <Elements {stripe} variables={{ borderRadius: "0" }}>
       <form
@@ -75,28 +79,33 @@
         {/if}
         <input
           name="name"
-          placeholder="Your name"
+          placeholder="Имена на картодържател"
           disabled={processing}
-          class="p-1 rounded"
+          class="form-input p-3 rounded-sm text-sm"
         />
         <CardNumber
           bind:element={cardElement}
-          classes={{ base: "input rounded bg-white p-2" }}
+          placeholder="Номер на карта"
+          classes={{ base: "input rounded-sm bg-white p-3" }}
         />
 
         <div class="flex space-x-2">
-          <CardExpiry classes={{ base: "input rounded bg-white p-2" }} />
-          <CardCvc classes={{ base: "input rounded bg-white p-2" }} />
+          <CardExpiry 
+            classes={{ base: "input rounded-sm bg-white p-3" }}
+            placeholder="ММ / ГГ"
+          />
+          <CardCvc classes={{ base: "input rounded-sm bg-white p-3" }} />
         </div>
 
         <button
           disabled={processing}
-          class="p-1 px-10 border border-zinc-950 hover:bg-zinc-950 hover:text-white"
+          class="bg-indigo-600 flex items-center justify-center space-x-4 rounded-sm p-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 w-full disabled:bg-indigo-700"
         >
           {#if processing}
-            Processing...
+          <p>Обработка</p>
+          <SyncLoader size="35" color="white" unit="px" duration="1s"/> 
           {:else}
-            Pay
+          Плащане ({priceFormat(totals.total_price)+totals.currency_suffix})
           {/if}
         </button>
       </form>

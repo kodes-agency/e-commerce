@@ -3,12 +3,12 @@
 </script>
 
 <fieldset transition:slide>
-  <h2 class="text-lg font-medium text-gray-900 my-4">Invoice details</h2>
+  <h2 class="text-xl md:text-2xl font-medium text-gray-900 my-4">Данни за фактура</h2>
   <div
     class="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-10 items-center"
   >
     <div class="flex flex-col w-full">
-      <label class="" for="company_name">Company name:</label>
+      <label class="" for="company_name">Име на фирма:</label>
       <input
         type="text"
         class="form-input bg-transparent px-3 w-full"
@@ -19,7 +19,7 @@
     </div>
     <div class="flex flex-col w-full">
       <label class="whitespace-nowrap" for="company_tax_number"
-        >Tax number (VAT)</label
+        >ЕИК номер</label
       >
       <input
         type="text"
@@ -34,7 +34,7 @@
     class="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-10 items-center"
   >
     <div class="flex flex-col w-full">
-      <label class="" for="company-country">Country:</label>
+      <label class="" for="company-country">Държава:</label>
       <input
         type="text"
         class="form-input bg-transparent px-3 w-full"
@@ -44,7 +44,7 @@
       />
     </div>
     <div class="flex flex-col w-full">
-      <label class="" for="company_city">City:</label>
+      <label class="" for="company_city">Град:</label>
       <input
         type="text"
         class="form-input bg-transparent px-3 w-full"
@@ -55,7 +55,7 @@
     </div>
   </div>
   <div class="flex flex-col">
-    <label class="" for="company_address">Company address:</label>
+    <label class="" for="company_address">Адрес:</label>
     <input
       type="text"
       class="form-input bg-transparent px-3 w-full"
