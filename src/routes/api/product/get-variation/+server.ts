@@ -15,7 +15,7 @@ export async function POST({request, fetch}){
                 })
                 return await response.json()
             }))
-            return json( await data ) 
+            return json( {data} ) 
         } catch(er: any){
             return json ({error: er})
         }
