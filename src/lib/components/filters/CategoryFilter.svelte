@@ -25,9 +25,9 @@
   ];
 </script>
 
-<div class="flex w-full justify-between">
+<div class="flex flex-wrap w-full justify-between">
   {#each categories as category}
-    <div>
+    <div class="mb-4">
       <input
         class="sr-only peer"
         type="checkbox"

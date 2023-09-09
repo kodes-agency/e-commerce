@@ -16,7 +16,7 @@ export const load = async ({fetch}) => {
     return minMaxData
   }
 
-  const resourceUrl = `${PUBLIC_API_ENDPOINT}/products`;
+  const resourceUrl = `${PUBLIC_API_ENDPOINT}/products?order=desc&orderby=popularity`;
   const options = {
     method: 'GET',
     headers: {

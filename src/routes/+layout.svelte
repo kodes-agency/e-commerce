@@ -3,13 +3,21 @@
   import "@skeletonlabs/skeleton/styles/skeleton.css";
   import "../app.postcss";
   import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
-  import { Toast, Modal, storePopup } from "@skeletonlabs/skeleton";
+  import { Toast, Modal, storePopup, Drawer } from "@skeletonlabs/skeleton";
   import { cartStore } from "$lib/store/store";
   import { isCartOpen } from "$lib/store/store";
   import { getCart } from "$lib/functions/cart/cartFunctions";
   import Cart from "$lib/components/cart/Cart.svelte";
   import CardPayment from "$lib/components/checkout/CardPayment.svelte";
   import type { ModalComponent } from "@skeletonlabs/skeleton";
+  import CategoryFilter from "$lib/components/filters/CategoryFilter.svelte";
+  import AllFilter from "$lib/components/filters/AllFilter.svelte";
+  import EmptyFilter from "$lib/components/filters/EmptyFilter.svelte";
+  import SortFilter from "$lib/components/filters/SortFilter.svelte";
+  import PriceFilter from "$lib/components/filters/PriceFilter.svelte";
+  import { filterProductsString } from "$lib/store/store";
+  import MobileFilterWrapper from "$lib/components/filters/MobileFilterWrapper.svelte";
+
 
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
@@ -25,6 +33,9 @@
 </script>
 
 <main>
+  <Drawer position="right">
+    <MobileFilterWrapper />
+  </Drawer>
   <Modal components={modalComponentRegistry} />
   <nav
     class="bg-[var(--white-color)] h-10 flex items-center justify-between px-4 fixed top-0 w-full z-10"

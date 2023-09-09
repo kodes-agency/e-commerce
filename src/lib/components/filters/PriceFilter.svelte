@@ -35,7 +35,7 @@
   bind:this={filterButton}
   class="{$filterMinMax[0] !== min || $filterMinMax[1] !== max
     ? 'bg-[var(--yellow-color)]'
-    : 'bg-[var(--white-color)]'} border border-[var(--black-color)] text-black w-[250px] py-1 relative uppercase"
+    : 'bg-[var(--white-color)]'} mt-4 lg:m-0 border border-[var(--black-color)] text-black w-[250px] py-1 relative uppercase"
   use:popup={minMaxPopup}
 >
   Цена
@@ -54,7 +54,7 @@
     /></svg
   >
 </button>
-<div data-popup="minMaxFilter">
+<div data-popup="minMaxFilter" class="z-20">
   <div
     class="bg-[var(--white-color)] w-[250px] border border-[var(--gray-color)] space-y-5 py-5 p-5 flex flex-col"
   >

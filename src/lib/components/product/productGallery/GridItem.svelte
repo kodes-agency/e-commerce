@@ -34,7 +34,7 @@
 <article class="flex flex-col justify-between border border-black p-5">
   <div>
     <div class="flex items-center justify-center">
-      <Img {src} {alt} {sizes} style="w-72"/>
+      <Img {src} {alt} {sizes} style="w-[180px] h-[180px] m-5 object-contain mix-blend-multiply"/>
     </div>
     <div class="flex gap-5 justify-between">
       <Name {name} style="font-bold text-sm"/>

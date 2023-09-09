@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store'
 import type { Writable } from "svelte/store";
 
+export const products: any = writable()
 export const cartStore: any = writable()
 export const isCartOpen = writable(false)
 export const paymentMethod = writable()

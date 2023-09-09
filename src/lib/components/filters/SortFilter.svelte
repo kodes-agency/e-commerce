@@ -49,7 +49,7 @@
 
 <button
   bind:this={filterButton}
-  class="bg-[var(--white-color)] border border-[var(--black-color)] text-black w-[250px] py-1 relative uppercase"
+  class="mt-4 lg:m-0 bg-[var(--white-color)] border border-[var(--black-color)] text-black w-[250px] py-1 relative uppercase"
   use:popup={minMaxPopup}
 >
   Подреди по
@@ -69,7 +69,7 @@
     /></svg
   >
 </button>
-<div data-popup="sortFilter">
+<div data-popup="sortFilter" class="z-20">
   <div
     class="bg-[var(--white-color)] w-[250px] border border-[var(--gray-color)] space-y-5 py-10 p-5 flex flex-col"
   >
@@ -84,7 +84,7 @@
           bind:group={$filterSort}
         />
         <label
-          class="cursor-pointer text-black text-center uppercase peer-checked:bg-[var(--yellow-color)]"
+          class="cursor-pointer text-black text-center uppercase peer-checked:font-bold"
           for={filter.orderBy}
         >
           {filter.name}
