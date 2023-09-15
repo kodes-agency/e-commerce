@@ -4,6 +4,7 @@
   import { filterMinMax } from "$lib/store/store";
   import { page } from "$app/stores";
   import { popup, type PopupSettings } from "@skeletonlabs/skeleton";
+  import { goto, invalidateAll } from "$app/navigation";
 
   let arrowSVG: any;
   let filterButton: HTMLButtonElement;
@@ -29,6 +30,7 @@
       }
     },
   };
+
 </script>
 
 <button
@@ -68,6 +70,10 @@
       first="label"
       last="label"
       suffix=" лв."
+      on:stop={()=>{
+        goto(`?${$page.url.searchParams.get('category') ? "category="+$page.url.searchParams.get('category')+"&" : "" }min_price=${$filterMinMax[0]*100}&max_price=${$filterMinMax[1]*100+"&"}${$page.url.searchParams.get('order') ? "order="+$page.url.searchParams.get('order')+"&" : "" }${$page.url.searchParams.get('orderby') ? "orderby="+$page.url.searchParams.get('orderby') : "" }`)
+        invalidateAll
+        }}
     />
     <div class="flex justify-between items-center">
       <p>от</p>
@@ -87,9 +93,11 @@
     <button
       type="button"
       aria-label="clear price filter"
+      
       class="italic text-sm pt-2"
       on:click={() => {
         $filterMinMax = [min, max, 0, 100];
+        goto(`?${$page.url.searchParams.get('category') ? "category="+$page.url.searchParams.get('category')+"&" : ""}${$page.url.searchParams.get('order') ? "order="+$page.url.searchParams.get('order')+"&" : "" }${$page.url.searchParams.get('orderby') ? "orderby="+$page.url.searchParams.get('orderby') : "" }`)
       }}>изчисти</button
     >
   </div>

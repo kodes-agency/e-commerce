@@ -3,10 +3,21 @@
   export let shortDescription: string;
 </script>
 
-<div>
-  <p>{@html shortDescription}</p>
-  <p>{@html longDescription}</p>
+<div class="description">
+  {#if shortDescription.length > 0}
+    <p>{@html shortDescription}</p>
+  {/if}
+  {#if longDescription}
+    <p>{@html longDescription}</p>
+  {/if}
 </div>
 
 <style>
+  :global(.description li) {
+    list-style:inside;
+    padding-left: 20px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
 </style>
+

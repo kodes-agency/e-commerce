@@ -5,7 +5,6 @@
   import Quantity from "./elements/Quantity.svelte";
   import Variation from "./elements/Variation.svelte";
   import { updateItem, deleteItem } from "$lib/functions/cart/cartFunctions.js";
-  import { toastStore } from "@skeletonlabs/skeleton";
   import RemoveButton from "./elements/RemoveButton.svelte";
   import { slide } from "svelte/transition";
 
@@ -52,15 +51,15 @@
         max={item.quantity_limits.maximum}
         on:quantityChange={async (event) => {
           cartItem.quantity = event.detail.quantity;
-          await updateItem(cartItem, toastStore);
+          await updateItem(cartItem);
         }}
       />
 
       <div class="flex">
         <RemoveButton
-          style="font-medium text-sm lg:text-base text-indigo-600 hover:text-indigo-500"
+          style="font-medium text-sm lg:text-base text-[var(--magenta-color)] hover:text-[var(--black-color)]"
           on:click={async () => {
-            await deleteItem(cartItem, toastStore);
+            await deleteItem(cartItem);
           }}
         >
           Премахни
@@ -71,7 +70,7 @@
 </li>
 
 <li class="flex sm:hidden py-4" transition:slide>
-  <Img style="h-28 w-28 border border-gray-200" src={item.images[0].src} alt={item.images[0].alt} />
+  <Img style="h-28 w-28 aspect-square object-contain border border-gray-200" src={item.images[0].src} alt={item.images[0].alt} />
   <div
     class="flex flex-col justify-between items-stretch w-full text-base font-medium text-gray-900 px-3"
   >
@@ -97,14 +96,14 @@
           max={item.quantity_limits.maximum}
           on:quantityChange={async (event) => {
             cartItem.quantity = event.detail.quantity;
-            await updateItem(cartItem, toastStore);
+            await updateItem(cartItem);
           }}
         />
   
           <RemoveButton
-            style="font-medium text-sm lg:text-base text-indigo-600 hover:text-indigo-500"
+            style="font-medium text-sm lg:text-base bg-[var(--yellow-color)] h-6 w-6 rounded-full flex items-center justify-center hover:bg-[var(--black-color)] text-[var(--black-color)] hover:text-[var(--white-color)]"
             on:click={async () => {
-              await deleteItem(cartItem, toastStore);
+              await deleteItem(cartItem);
             }}
           >
             X

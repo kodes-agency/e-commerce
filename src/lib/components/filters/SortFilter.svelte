@@ -2,6 +2,8 @@
   // @ts-ignore
   import { popup, type PopupSettings } from "@skeletonlabs/skeleton";
   import { filterSort } from "$lib/store/store";
+  import { page } from "$app/stores";
+  import { invalidateAll } from "$app/navigation";
 
   const minMaxPopup: PopupSettings = {
     event: "click",
@@ -58,8 +60,7 @@
     class="absolute right-5 top-2.5 rotate-180 transition-transform duration-300"
     xmlns="http://www.w3.org/2000/svg"
     height="1em"
-    viewBox="0 0 512 512"
-    ><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+    viewBox="0 0 512 512">
     <style>
       svg {
         fill: #222221;
@@ -74,22 +75,13 @@
     class="bg-[var(--white-color)] w-[250px] border border-[var(--gray-color)] space-y-5 py-10 p-5 flex flex-col"
   >
     {#each sortFilters as filter}
-      <div>
-        <input
-          class="sr-only peer"
-          type="radio"
-          name="sorting-filters"
-          id={filter.orderBy}
-          value={filter.filterString}
-          bind:group={$filterSort}
-        />
-        <label
-          class="cursor-pointer text-black text-center uppercase peer-checked:font-bold"
-          for={filter.orderBy}
-        >
-          {filter.name}
-        </label>
-      </div>
+      <a 
+        class="text-cente uppercase {filter.filterString == ("order="+$page.url.searchParams.get("order")+"&orderby="+$page.url.searchParams.get("orderby")) ? 'font-bold' : ''}"
+        href="?{$page.url.searchParams.get("category") ? "category="+$page.url.searchParams.get("category")+"&" : ""}{$page.url.searchParams.get("min_price") ? `min_price=${$page.url.searchParams.get("min_price")}&` : ""}{$page.url.searchParams.get("max_price") ? `max_price=${$page.url.searchParams.get("max_price")}&` : ""}{filter.filterString}"
+        on:click={invalidateAll}
+      >
+        {filter.name}
+      </a>
     {/each}
   </div>
 </div>

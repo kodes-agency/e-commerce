@@ -28,15 +28,15 @@
   }
 </script>
 
-<div class="flex items-center border border-zinc-300 w-fit h-10 sm:h-7">
-  <p class="h-10 w-10 sm:w-7 flex justify-center items-center">{currentQuantity}</p>
+<div class="flex items-center w-fit space-x-2">
+  <p class="h-full w-10 md:w-8 flex justify-center border border-[var(--black-color)] items-center">{currentQuantity}</p>
   <div
-    class="border-l border-zinc-300 h-full w-10 sm:w-7 flex flex-col justify-around items-center"
+    class=" h-full w-8 md:w-6  flex flex-col justify-around items-center space-y-1"
   >
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <button
       id="increase"
-      class="flex items-center justify-center w-full h-full hover:bg-amber-300"
+      class="flex items-center justify-center w-full h-full hover:bg-amber-300  border border-[var(--black-color)]"
       disabled={max == currentQuantity}
       on:click={(event)=>{
         event.preventDefault()
@@ -59,7 +59,7 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <button
       id="decrease"
-      class="flex items-center justify-center border-t border-zinc-300 w-full h-full hover:bg-amber-300"
+      class="flex items-center justify-center border border-[var(--black-color)] w-full h-full hover:bg-amber-300"
       disabled={min == currentQuantity}
       on:click={(event)=>{
         event.preventDefault()

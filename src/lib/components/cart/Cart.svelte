@@ -49,7 +49,7 @@
 >
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <div bind:this={backdrop} class="fixed inset-0 bg-gray-500 opacity-0 bg-opacity-75 transition-opacity" />
+  <div bind:this={backdrop} class="fixed inset-0 bg-amber-100 opacity-0 bg-opacity-75 transition-opacity" />
   <div class="fixed inset-0 overflow-hidden">
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -120,7 +120,9 @@
               <div class="mt-6">
                 <a
                   href="/checkout"
-                  class="flex items-center justify-center border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                  on:click={toggle}
+                  class="flex items-center justify-center border border-transparent bg-[var(--yellow-color)] px-6 py-3 text-base font-medium text-[var(--black-color)] shadow-sm hover:bg-[var(--black-color)] hover:text-[var(--white-color)] 
+                  {cart.items.length === 0 ? " pointer-events-none cursor-not-allowed bg-gray-300" : ""}"
                   >Поръчай</a
                 >
               </div>
@@ -131,7 +133,7 @@
                   или
                   <button
                     type="button"
-                    class="font-medium text-indigo-600 hover:text-indigo-500"
+                    class="font-medium text-[var(--black-color)]"
                     on:click={toggle}
                   >
                     Продължи с пазаруването

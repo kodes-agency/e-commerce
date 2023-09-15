@@ -1,10 +1,9 @@
 import type { CartItem } from "$lib/types/types";
 import { cartStore } from "$lib/store/store";
+import { toastStore } from "@skeletonlabs/skeleton";
 
-export async function updateItem(
-  item: CartItem,
-  store: { trigger: (arg0: { message: any; background: string }) => void }
-) {
+
+export async function updateItem(item: CartItem) {
   try {
     const res = await fetch("/api/cart/update-item", {
       method: "POST",
@@ -19,20 +18,20 @@ export async function updateItem(
 
     const data = await res.json();
     if (data.error || data.message) {
-      store.trigger({
+      toastStore.trigger({
         message: data.error || data.message,
         background: "variant-filled-error",
       });
     } else {
       cartStore.set(await data);
-      store.trigger({
-        message: `${item.name} quantity updated`,
+      toastStore.trigger({
+        message: `Променихме стойността на ${item.name} във вашата количка`,
         background: "variant-filled-primary",
       });
     }
     return;
   } catch (er: any) {
-    store.trigger({
+    toastStore.trigger({
       message: er.message,
       background: "variant-filled-error",
     });

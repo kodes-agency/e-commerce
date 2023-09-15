@@ -1,34 +1,61 @@
 <script lang="ts">
-  import FilterWrapper from "$lib/components/filters/FilterWrapper.svelte";
-  import ProductGrid from "$lib/components/product/productGallery/ProductGrid.svelte";
-  import { products, filterProductsString } from "$lib/store/store";
-  import { fade } from "svelte/transition";
-  export let data
+  import { PUBLIC_STRAPI_IMAGE } from "$env/static/public";
+  import Category from "$lib/components/product/category/Category.svelte";
+  import ProductGrid from "$lib/components/product/featuredGellery/ProductGrid.svelte";
+  import { logoColor } from "$lib/store/store.js";
+  import { onMount } from "svelte";
+  export let data;
 
-  async function getProducts(filterString:any) {
-    const response = await fetch("/api/product/get-products", {
-      method: "POST",
-      body: JSON.stringify(filterString)
-    });
-    const json = await response.json();
-    const { products } = json;
-    console.log(products, json);
-    return products;
+  let heroHeight: number;
+
+  function scrollHandler() {
+    if (window.scrollY + 25 >= heroHeight) {
+      $logoColor = "var(--black-color)";
+    } else {
+      $logoColor = "var(--white-color)";
+    }
   }
 
-  $: $products = getProducts($filterProductsString)
+  onMount(() => {
+    $logoColor = "var(--white-color)"
+    window.addEventListener("scroll", scrollHandler);
+    return () => {
+      window.removeEventListener("scroll", scrollHandler);
+      $logoColor = "var(--black-color)"
+    };
+  });
 </script>
 
-<section class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-6xl lg:px-8">
-  <FilterWrapper />
-  {#await $products}
-  <div class=" blur-sm">
-    <ProductGrid products={data.products} />
+<div bind:clientHeight={heroHeight}>
+  <img
+    loading="lazy"
+    class="w-full md:h-[80vh] object-cover"
+    src={PUBLIC_STRAPI_IMAGE +
+      data.page.data.attributes.pageThumbnail.data.attributes.url}
+    alt=""
+  />
+</div>
+<section
+  class="bg-[var(--white-color)] min-h-screen pt-10 md:pt-20 w-full flex flex-col items-center space-y-10 md:space-y-20 relative z-10"
+>
+  <h1 class="text-4xl md:text-6xl font-bold w-full text-center px-5">
+    {data.page.data.attributes.pageHeading}
+  </h1>
+  <ProductGrid products={data.products} />
+  <a
+    class="uppercase text-center border border-[var(--black-color)] py-2 px-10 hover:bg-[var(--yellow-color)]"
+    href="/product">Всички продукти</a
+  >
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+    {#each data.categories as category}
+      {#if category.name != "Uncategorized"}
+        <Category
+          id={category?.id}
+          name={category?.name}
+          src={category?.image?.src}
+          alt={category?.image?.alt}
+        />
+      {/if}
+    {/each}
   </div>
-  {:then products}
-  <div in:fade>
-    <ProductGrid {products}/>
-  </div>
-  {/await}
 </section>
-

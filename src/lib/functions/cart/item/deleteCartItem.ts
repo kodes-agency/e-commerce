@@ -1,10 +1,8 @@
 import type { CartItem } from "$lib/types/types";
 import { cartStore } from "$lib/store/store";
+import { toastStore } from "@skeletonlabs/skeleton";
 
-export async function deleteItem(
-  item: CartItem,
-  store: { trigger: (arg0: { message: any; background: string }) => void }
-) {
+export async function deleteItem(item: CartItem) {
   try {
     const res = await fetch("/api/cart/remove-item", {
       method: "POST",
@@ -17,20 +15,20 @@ export async function deleteItem(
     });
     const data = await res.json();
     if (data.error || data.message) {
-      store.trigger({
+      toastStore.trigger({
         message: data.error || data.message,
         background: "variant-filled-error",
       });
     } else {
       cartStore.set(await data);
-      store.trigger({
-        message: `${item.name} removed from cart`,
+      toastStore.trigger({
+        message: `Премахнахме ${item.name} от вашата количка`,
         background: "variant-filled-warning",
       });
     }
     return;
   } catch (er: any) {
-    store.trigger({
+    toastStore.trigger({
       message: er.message,
       background: "variant-filled-error",
     });

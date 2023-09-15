@@ -3,4 +3,4 @@
   export let style: string = "";
 </script>
 
-<p class={style}>{name}</p>
+<p class={style}>{@html name}</p>

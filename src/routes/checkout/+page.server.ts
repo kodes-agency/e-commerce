@@ -102,65 +102,63 @@ export const actions = {
       paymentMethod: formData.get("payment_method"),
     }
 
-    console.log(order)
+    const headers: any = { "Content-Type": "application/json" };
 
-    // const headers: any = { "Content-Type": "application/json" };
+    cookies.getAll().forEach((cookie) => {
+      headers[cookie.name] = cookie.value;
+    });
 
-    // cookies.getAll().forEach((cookie) => {
-    //   headers[cookie.name] = cookie.value;
-    // });
+    const responseOrder: any = await fetch(
+      "https://shop.fragment.bg/wp-json/wc/store/v1/checkout",
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(order),
+      }
+    );
 
-    // const responseOrder: any = await fetch(
-    //   "https://shop.fragment.bg/wp-json/wc/store/v1/checkout",
-    //   {
-    //     method: "POST",
-    //     headers: headers,
-    //     body: JSON.stringify(order),
-    //   }
-    // );
+    const data: any = await responseOrder.json();
 
-    // const data: any = await responseOrder.json();
+    let url = `/checkout/success?first_name=${onSuccessDate.first_name}&last_name=${onSuccessDate.last_name}&order_id=231&email=${onSuccessDate.email}&payment_method=${onSuccessDate.paymentMethod}`
 
-    // let url = `/checkout/success?first_name=${onSuccessDate.first_name}&last_name=${onSuccessDate.last_name}&order_id=231&email=${onSuccessDate.email}&payment_method=${onSuccessDate.paymentMethod}`
+    if(data.status == "completed" || data.status == "processing"){
+      cartStore.set([])
+      throw redirect(301, url)
+    }
 
-    // if(data.status == "completed" || data.status == "processing"){
-    //   cartStore.set([])
-    //   throw redirect(301, url)
-    // }
+    if (data.status === "completed") {
+      const removeItems = await fetch(
+        "https://shop.fragment.bg/wp-json/wc/store/v1/cart/items",
+        {
+          method: "DELETE",
+          headers: headers,
+        }
+      );
+    }
 
-    // if (data.status === "completed") {
-    //   const removeItems = await fetch(
-    //     "https://shop.fragment.bg/wp-json/wc/store/v1/cart/items",
-    //     {
-    //       method: "DELETE",
-    //       headers: headers,
-    //     }
-    //   );
-    // }
+    const headerCookies: any = set_cookie_parser.parse(
+      set_cookie_parser.splitCookiesString(
+        responseOrder.headers.get("set-cookie")
+      )
+    );
 
-    // const headerCookies: any = set_cookie_parser.parse(
-    //   set_cookie_parser.splitCookiesString(
-    //     responseOrder.headers.get("set-cookie")
-    //   )
-    // );
+    headerCookies.forEach((cookie: any) => {
+      cookies.set(cookie.name, cookie.value, {
+        path: cookie.path || "/",
+        expires: cookie?.expires,
+        maxAge: cookie?.maxAge || 60 * 60 * 24 * 7,
+        secure: false,
+        httpOnly: true,
+      });
+    });
 
-    // headerCookies.forEach((cookie: any) => {
-    //   cookies.set(cookie.name, cookie.value, {
-    //     path: cookie.path || "/",
-    //     expires: cookie?.expires,
-    //     maxAge: cookie?.maxAge || 60 * 60 * 24 * 7,
-    //     secure: false,
-    //     httpOnly: true,
-    //   });
-    // });
-
-    // cookies.set("cart-token", responseOrder.headers.get("cart-token"), {
-    //   path: "/",
-    //   maxAge: 60 * 60 * 24 * 7,
-    //   secure: false,
-    //   httpOnly: true,
-    //   sameSite: "lax",
-    // });
+    cookies.set("cart-token", responseOrder.headers.get("cart-token"), {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+      secure: false,
+      httpOnly: true,
+      sameSite: "lax",
+    });
 
     return { status: 200};
   },

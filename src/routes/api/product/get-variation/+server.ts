@@ -1,23 +1,25 @@
-import { json } from '@sveltejs/kit'
-import { PUBLIC_API_ENDPOINT } from '$env/static/public';
+import { json } from "@sveltejs/kit";
+import { PUBLIC_API_ENDPOINT } from "$env/static/public";
 
+export async function POST({ request, fetch }) {
+  const variationIds = await request.json();
 
-export async function POST({request, fetch}){
-    const { variations } = await request.json()
+  let data;
 
-    let data
-    
-    if(variations){
-        try{
-            data = Promise.all(variations.map(async (variation: any) =>{
-                const response = await fetch(`${PUBLIC_API_ENDPOINT}/products/${variation}`, {
-                    method: "GET",
-                })
-                return await response.json()
-            }))
-            return json( {data} ) 
-        } catch(er: any){
-            return json ({error: er})
-        }
-    }
+  try {
+    data = await Promise.all(
+      variationIds.map(async (variation: any) => {
+        const response = await fetch(
+          `${PUBLIC_API_ENDPOINT}/products/${variation}`,
+          {
+            method: "GET",
+          }
+        );
+        return await response.json();
+      })
+    );
+    return json(data);
+  } catch (er: any) {
+    return json({ error: er });
+  }
 }

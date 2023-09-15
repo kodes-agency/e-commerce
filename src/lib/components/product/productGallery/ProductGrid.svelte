@@ -3,21 +3,19 @@
   export let products: any;
 </script>
 
-  <div
-    class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-6xl lg:px-8"
-  >
-    {#each products as product}
-      <GridItem
-        name={product.name}
-        id={product.id}
-        price={product.prices.price}
-        currency={product.prices.currency_suffix}
-        src={product.images[0].src}
-        sizes={product.images[0].sizes}
-        alt={product.images[0].alt}
-        variations={product.variations}
-        attributes={product.attributes}
-        shortDescription={product.short_description}
-      />
-    {/each}
-  </div>
+<div
+  class="mt-6 grid grid-cols-2 p-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 w-full"
+>
+  {#each products as product}
+    <GridItem
+      name={product.name}
+      slug={product.slug}
+      price={product.prices.regular_price}
+      currency={product.prices.currency_suffix}
+      src={product.images[0].src}
+      alt={product.images[0].alt}
+      onSale={product.on_sale}
+      salePrice={product.prices.sale_price}
+    />
+  {/each}
+</div>

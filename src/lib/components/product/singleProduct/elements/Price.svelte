@@ -1,47 +1,32 @@
 <script lang="ts">
-  import { priceFormat } from "$lib/functions/global/priceFormat.js";
-  export let regular_price: string,
-    sale_price: string,
-    currency_suffix: string,
-    currency_prefix: string,
-    currency_code: string,
-    language: string;
+  import { extractDigits } from "$lib/functions/global/priceFormat.js";
+  export let price: number;
+  export let currency: string;
+  export let style: string;
+  export let salePrice: number
 </script>
 
-{#if regular_price == sale_price}
-  {#if language == "en"}
-    <p>{priceFormat(sale_price)} {currency_code}</p>
-  {:else}
-    <p>{currency_prefix}{priceFormat(sale_price)}{currency_suffix}</p>
+<div class="flex flex-col md:flex-row items-end md:items-start md:space-x-2 ">
+  <div class="flex space-x-1 w-fit relative">
+    {#if salePrice !== price }
+    <div class="h-0.5 w-full absolute top-3.5 bg-black right-0"></div>
+    <!-- <div class="h-px w-full absolute top-2.5 bg-black -rotate-12 right-0"></div> -->
+    {/if}
+    <p class="content {style}"  data-end="{extractDigits(price, "last")}">{extractDigits(price, "first")}</p><p class={style}>{currency}</p>
+  </div>
+  {#if salePrice !== price }
+  <div class="flex space-x-1">
+    <p class="content {style}"  data-end="{extractDigits(salePrice, "last")}">{extractDigits(salePrice, "first")}</p><p class={style}>{currency}</p>
+  </div>
   {/if}
-{:else if language == "en"}
-  <div class="price-wrapper">
-    <p class="regular">{priceFormat(regular_price)} {currency_code}</p>
-    <p class="sale">{priceFormat(sale_price)} {currency_code}</p>
-  </div>
-{:else}
-  <div class="price-wrapper">
-    <p class="regular">
-      {currency_prefix}{priceFormat(regular_price)}{currency_suffix}
-    </p>
-    <p class="sale">
-      {currency_prefix}{priceFormat(sale_price)}{currency_suffix}
-    </p>
-  </div>
-{/if}
+</div>
 
 <style>
-  p {
-    font-size: 18px;
-    text-align: end;
-  }
-
-  .regular {
-    opacity: 0.5;
-    text-decoration: line-through;
-  }
-
-  .price-wrapper {
-    display: block;
+  .content::after {
+    content: attr(data-end);
+    font-size: 12px;
+    position: relative;
+    bottom: 7px;
+    left: 1px;
   }
 </style>

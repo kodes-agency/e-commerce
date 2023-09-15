@@ -10,7 +10,6 @@ export async function GET({ fetch }) {
         method: "GET"
       }
     );
-    console.log(json(minMaxPrice))
     return json(minMaxPrice);
   } catch (er: any) {
     return json({ error: er });

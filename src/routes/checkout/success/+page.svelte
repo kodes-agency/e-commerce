@@ -1,6 +1,5 @@
 <script lang="ts">
     import { page } from "$app/stores";
-    // console.log($page.url.searchParams.get)
 </script>
 
 <section class=" h-screen w-full flex flex-col justify-center items-center">

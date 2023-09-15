@@ -2,13 +2,5 @@
   export let name: String;
 </script>
 
-<h1>{name}</h1>
+<h1 class="text-2xl md:text-3xl font-bold">{@html name}</h1>
 
-<style>
-  h1 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0;
-    padding: 0;
-  }
-</style>

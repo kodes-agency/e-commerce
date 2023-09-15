@@ -8,7 +8,6 @@
   import { SyncLoader } from 'svelte-loading-spinners'
 
   let { totals } = $cartStore
-  console.log(totals)
 
   let stripe: any = null;
   let error: any = null;

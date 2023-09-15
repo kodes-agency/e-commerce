@@ -33,7 +33,7 @@
           use:enhance
           class="flex-col w-full md:w-2/4 lg:w-3/5 space-y-2 md:space-y-4 p-4 md:p-5 lg:p-10"
         >
-          <DeliveryForm bind:paymentReadiness={paymentReadiness}/>
+          <DeliveryForm/>
           <PaymentMethod bind:chosenPaymentMethod={chosenPayment} />
     
           <InvoiceShipping bind:companyInvoice />

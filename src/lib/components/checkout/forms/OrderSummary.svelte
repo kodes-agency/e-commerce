@@ -100,7 +100,6 @@
 </div>
 <div class="p-4 fixed bottom-0 bg-white w-full md:hidden">
   <button
-    disabled={!paymentReadiness}
     type="button"
     class="flex z-10 items-center justify-center p-3 bg-indigo-600 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700 w-full"
     on:click={({ target }) => {

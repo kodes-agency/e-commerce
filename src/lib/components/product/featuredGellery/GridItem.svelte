@@ -1,7 +1,8 @@
 <script lang="ts">
-  import Img from "./elements/Img.svelte";
-  import Name from "./elements/Name.svelte";
-  import Price from "./elements/Price.svelte";
+  import { onMount } from "svelte";
+  import Img from "../productGallery/elements/Img.svelte";
+  import Name from "../productGallery/elements/Name.svelte";
+  import Price from "../productGallery/elements/Price.svelte";
 
   export let name: string;
   export let price: number;
@@ -11,6 +12,7 @@
   export let slug: string;
   export let onSale: boolean;
   export let salePrice: number
+  
 </script>
 
 <a href="/product/{slug}" class="relative">

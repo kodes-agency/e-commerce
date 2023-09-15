@@ -1,50 +1,33 @@
 <script lang="ts">
-  import { filterCategory } from "$lib/store/store";
-
-  let categories = [
-    {
-      name: "Мода",
-      slug: "fashion",
-      id: 19
-    },
-    {
-      name: "Бижута и аксесоари",
-      slug: "jewelry",
-      id: 21
-    },
-    {
-      name: "За дома",
-      slug: "home",
-      id: 22
-    },
-    {
-      name: "Храна и напитки",
-      slug: "foods",
-      id: 20
-    },
-  ];
+  import { invalidateAll } from "$app/navigation";
+  import { page } from "$app/stores";
+  import { filterHeading } from "$lib/store/store";
 </script>
 
 <div class="flex flex-wrap w-full justify-between">
-  {#each categories as category}
-    <div class="mb-4">
-      <input
-        class="sr-only peer"
-        type="checkbox"
-        name={category.slug}
-        id={category.slug}
-        value={category.id}
-        bind:group={$filterCategory}
-      />
-      <label
-        class="cursor-pointer bg-[var(--white-color)] border border-[var(--black-color)] text-black w-[250px] text-center py-1 uppercase peer-checked:bg-[var(--yellow-color)]"
-        for={category.slug}
+  {#each $page.data.categories as category}
+    {#if category.name != "Uncategorized"}
+      <a
+        class="bg-[var(--white-color)] border border-[var(--black-color)] text-black w-[250px] mb-2 text-center py-1 uppercase {category.id ==
+        Number($page.url.searchParams.get('category'))
+          ? 'bg-[var(--yellow-color)]'
+          : 'bg-[var(--white-color)]'}"
+        href="?category={category.id}&{$page.url.searchParams.get('min_price')
+          ? `min_price=${$page.url.searchParams.get('min_price')}&`
+          : ''}{$page.url.searchParams.get('max_price')
+          ? `max_price=${$page.url.searchParams.get('max_price')}&`
+          : ''}{$page.url.searchParams.get('order')
+          ? `order=${$page.url.searchParams.get('order')}&`
+          : ''}{$page.url.searchParams.get('orderby')
+          ? `orderby=${$page.url.searchParams.get('orderby')}`
+          : ''}"
+        on:click={() => {
+          $filterHeading = category.name;
+          invalidateAll;
+        }}
       >
         {category.name}
-      </label>
-    </div>
+      </a>
+    {/if}
   {/each}
 </div>
-
-<style>
-</style>

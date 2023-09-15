@@ -239,9 +239,6 @@
             loading={true}
             placeholder="Изберете офис"
             disabled
-            on:change={() => {
-              console.log("change");
-            }}
           />
         {:then items}
         <label for="office">Офис на Еконт:</label>
@@ -348,7 +345,6 @@
       </div>
     {/if}
   {/if}
-  <button on:click={()=>{console.log(fieldsetEl.validity)}}>Validate</button>
 </fieldset>
 
 <style lang="postcss">

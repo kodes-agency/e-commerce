@@ -7,7 +7,7 @@
   export let text: string = "";
   export let type: "add-to-cart-button" | "link";
   export let style: string =
-    "border border-black bg-amber-300 text-slate-950 py-0.5 w-fit px-10 hover:bg-slate-950 hover:text-slate-100 focus:ring focus:ring-slate-300";
+    "bg-amber-300 text-[var(--black-color)] py-1 w-fit px-8 hover:bg-[var(--black-color)] hover:text-[var(--white-color)] focus:ring focus:ring-slate-300";
 
   const dispatch = createEventDispatcher();
 </script>
@@ -16,7 +16,7 @@
   <a class={style} {href}>{text}</a>
 {:else if type == "add-to-cart-button"}
   <button
-    class={style}
+    class="{style} md:border md:border-[var(--black-color)] font-bold md:font-normal fixed bottom-0 left-0 md:static h-12 md:h-auto z-20 w-full md:w-fit"
     disabled={attributes.length > 0 && !variationChange}
     on:click={() => {
       dispatch("order", { ordered: true });
