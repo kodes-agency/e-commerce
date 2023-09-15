@@ -16,6 +16,10 @@
   import MobileFilterWrapper from "$lib/components/filters/MobileFilterWrapper.svelte";
   import Header from "$lib/components/global/Header.svelte";
   import ProgressBar from "$lib/components/global/ProgressBar.svelte";
+  import Footer from "$lib/components/global/Footer.svelte";
+  import { page } from "$app/stores";
+
+  console.log($page)
 
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
@@ -33,5 +37,7 @@
   <Header />
   <slot />
   <Toast />
-  <div class="h-96 bg-[var(--white-color)] w-full" />
+  {#if $page.route.id !== "/checkout" && $page.route.id !== "/product/[slug]" }
+    <Footer/>
+  {/if}
 </main>

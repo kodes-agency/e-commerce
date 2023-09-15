@@ -12,3 +12,4 @@ export const filterProductsString: Writable<string> = writable("")
 export const filterHeading = writable()
 export const logoColor = writable("var(--black-color)")
 export const heroHeight:Writable<number> = writable()
+export const subscribe = writable(false);

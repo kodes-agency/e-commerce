@@ -30,7 +30,9 @@
   },
   "type": "module",
   "dependencies": {
+    "@apollo/client": "^3.8.3",
     "@floating-ui/dom": "^1.5.1",
+    "@mailchimp/mailchimp_marketing": "^3.0.80",
     "@tailwindcss/container-queries": "^0.1.1",
     "gsap": "^3.12.2",
     "set-cookie-parser": "^2.6.0",

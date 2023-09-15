@@ -10,11 +10,8 @@
   import DeliveryForm from "$lib/components/checkout/forms/DeliveryForm.svelte";
   
   async function checkoutDetails(){
-    $cartStore = await getCart();
+    return $cartStore = await getCart();
   }
-
-
-  checkoutDetails()
 
   let paymentReadiness: boolean = false
   let chosenPayment: any;
@@ -22,7 +19,7 @@
 </script>
 
 <section class="flex flex-col-reverse md:flex-col py-10 pb-32 md:pb-0">
-  {#await $cartStore}
+  {#await checkoutDetails()}
     ...loading
   {:then cart}
     {#if cart.items.length > 0}

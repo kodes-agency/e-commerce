@@ -1,6 +1,8 @@
 /** @type {import('@sveltejs/kit').Load} */
-
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
+import { getClient } from "$lib/functions/getClient";
+import query from "$lib/queries/layoutQuery.js";
+
 export const load = async ({ fetch, cookies }) => {
     const response: any = await fetch("https://shop.fragment.bg/wp-json/wc/store/v1/cart", {
         method: 'GET',
@@ -18,7 +20,13 @@ export const load = async ({ fetch, cookies }) => {
         sameSite: 'lax'
     })
 
+    const layoutData = getClient().query({
+        query: query()
+    })
+
     return {
-        categories: productCategories
+        cart: response.json(),
+        categories: productCategories,
+        footer: layoutData
     }
 }

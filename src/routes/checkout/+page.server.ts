@@ -18,6 +18,7 @@ export const load = async ({ fetch, cookies }) => {
 
   const data = await res.json();
   return {
+    
     form: {
       billing_address: {
         first_name: data.billing_address?.first_name || "",
