@@ -30,7 +30,7 @@
       <div
         class="flex justify-between space-x-1 text-base font-medium text-gray-900"
       >
-        <Name name={item.name} style="text-sm lg:text-base" />
+        <Name name={item.name} style="text-sm lg:text-base font-bold" />
         <Price
           total={item.totals.line_total}
           currency={item.totals.currency_suffix}
@@ -75,7 +75,7 @@
     class="flex flex-col justify-between items-stretch w-full text-base font-medium text-gray-900 px-3"
   >
     <div>
-        <Name name={item.name} style="text-sm"/>
+        <Name name={item.name} style="text-sm font-bold"/>
         {#if item?.variation.length > 0 }        
           <Variation
             variation={"Размер: "+item?.variation[0]?.value}

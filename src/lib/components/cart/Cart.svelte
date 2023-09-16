@@ -64,7 +64,7 @@
             <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
               <div class="flex items-start justify-between">
                 <h2
-                  class="text-lg font-medium text-gray-900"
+                  class="text-lg font-bold text-gray-900"
                   id="slide-over-title"
                 >
                   Вашата количка
@@ -109,7 +109,7 @@
 
             <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
               <div
-                class="flex justify-between text-base font-medium text-gray-900"
+                class="flex justify-between text-base font-bold text-gray-900"
               >
                 <p>Общо</p>
                 <p>{priceFormat(cart.totals.total_price)}{cart.totals.currency_suffix}</p>
@@ -121,7 +121,7 @@
                 <a
                   href="/checkout"
                   on:click={toggle}
-                  class="flex items-center justify-center border border-transparent bg-[var(--yellow-color)] px-6 py-3 text-base font-medium text-[var(--black-color)] shadow-sm hover:bg-[var(--black-color)] hover:text-[var(--white-color)] 
+                  class="flex items-center justify-center border border-transparent bg-[var(--yellow-color)] px-6 py-3 text-base font-bold text-[var(--black-color)] shadow-sm hover:bg-[var(--black-color)] hover:text-[var(--white-color)] 
                   {cart.items.length === 0 ? " pointer-events-none cursor-not-allowed bg-gray-300" : ""}"
                   >Поръчай</a
                 >
@@ -133,7 +133,7 @@
                   или
                   <button
                     type="button"
-                    class="font-medium text-[var(--black-color)]"
+                    class="font-bold text-[var(--black-color)]"
                     on:click={toggle}
                   >
                     Продължи с пазаруването
