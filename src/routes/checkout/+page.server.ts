@@ -16,9 +16,14 @@ export const load = async ({ fetch, cookies }) => {
     headers: headers,
   });
 
+  const resCart: any = await fetch(`${PUBLIC_API_ENDPOINT}/cart`, {
+    method: "GET",
+    headers: headers,
+  });
+
   const data = await res.json();
   return {
-    
+    cart: resCart.json(),
     form: {
       billing_address: {
         first_name: data.billing_address?.first_name || "",
@@ -41,7 +46,7 @@ export const load = async ({ fetch, cookies }) => {
       {
         id: "alg_custom_gateway_1",
         label: "Плащане с карта",
-        text: "Плащане с дебитна или кредитна карта посредством платформа за разплащания Stripe.",
+        text: "Плащане с дебитна или кредитна карта посредством Stripe.",
         available: true,
       },
     ]
@@ -67,31 +72,24 @@ export const actions = {
         first_name: formData.get("billing_first_name"),
         last_name: formData.get("billing_last_name"),
         address_1: formData.get("billing_address_1"),
-        address_2: "Stripe ID: " + formData.get("payment_id") || "",
+        address_2: formData.get("payment_id") ? "Stripe ID: "+formData.get("payment_id") : "",
         city: formData.get("billing_city"),
         email: formData.get("billing_email"),
-        postcode: formData.get("billing_postcode"),
+        postcode: "0000",
         country: "BG",
         phone: formData.get("billing_phone"),
       },
       shipping_address: {
-        first_name:
-          formData.get("shipping_first_name") ||
-          formData.get("billing_first_name"),
-        last_name:
-          formData.get("shipping_last_name") ||
-          formData.get("billing_last_name"),
-        address_1:
-          formData.get("shipping_address_1") ||
-          formData.get("billing_address_1"),
-        city: formData.get("shipping_city") || formData.get("billing_city"),
+        first_name: formData.get("billing_first_name"),
+        last_name: formData.get("billing_last_name"),
+        address_1: formData.get("billing_address_1"),
+        city: formData.get("billing_city"),
         country: "BG",
-        postcode:
-          formData.get("shipping_postcode") || formData.get("billing_postcode"),
+        postcode: "1000",
       },
-      customer_note: companyDetails.company
+      customer_note: (companyDetails.company
         ? `Данни за фактура: \n Компания: ${companyDetails.company} \n ЕИК: ${companyDetails.company_tax_number} \n Град: ${companyDetails.company_city} \n Адрес: ${companyDetails.company_address} \n Държава: ${companyDetails.company_country} \n`
-        : "",
+        : "") +"\n"+"Бележка от клиента: "+formData.get("customer_note"),
       create_account: false,
       payment_method: formData.get("payment_method"),
     };
@@ -119,6 +117,8 @@ export const actions = {
     );
 
     const data: any = await responseOrder.json();
+
+    console.log(data)
 
     let url = `/checkout/success?first_name=${onSuccessDate.first_name}&last_name=${onSuccessDate.last_name}&order_id=231&email=${onSuccessDate.email}&payment_method=${onSuccessDate.paymentMethod}`
 

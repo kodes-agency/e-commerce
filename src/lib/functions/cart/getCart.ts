@@ -1,3 +1,5 @@
+import { invalidateAll } from "$app/navigation";
+
 export async function getCart(): Promise<any | void> {
     try{
       const res = await fetch("/api/cart", {

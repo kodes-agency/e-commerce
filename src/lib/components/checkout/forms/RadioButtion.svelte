@@ -6,6 +6,7 @@
   export let value: any;
   export let binder: any;
   export let checked: boolean = false;
+  export let required: boolean
 </script>
 
 <label
@@ -20,9 +21,10 @@
     {checked}
     bind:group={binder}
     class="sr-only peer"
+    required={required}
   />
   <span
-    class="flex flex-col justify-center pointer-events-none w-full h-full -inset-px border-4 p-5 peer-checked:border-blue-500 peer-disabled:border-gray-300 peer-checked:bg-blue-100"
+    class="flex flex-col justify-center pointer-events-none w-full h-full -inset-px border-4 p-5 peer-checked:border-[var(--yellow-color)] peer-disabled:border-gray-300 peer-checked:bg-[var(--light-yellow-color)]"
     >
     <svg
       xmlns="http://www.w3.org/2000/svg"

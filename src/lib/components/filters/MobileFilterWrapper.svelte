@@ -45,7 +45,7 @@
       class="text-black uppercase {$page.url.searchParams.get('category')
         ? 'font-normal'
         : 'font-bold'}"
-      href="?category=&{$page.url.searchParams.get('min_price')
+      href="/product?category=&{$page.url.searchParams.get('min_price')
         ? `min_price=${$page.url.searchParams.get('min_price')}&`
         : ''}{$page.url.searchParams.get('max_price')
         ? `max_price=${$page.url.searchParams.get('max_price')}&`
@@ -65,7 +65,7 @@
           Number($page.url.searchParams.get('category'))
             ? 'font-bold'
             : 'font-normal'}"
-          href="?category={category.id}&{$page.url.searchParams.get('min_price')
+          href="/product?category={category.id}&{$page.url.searchParams.get('min_price')
             ? `min_price=${$page.url.searchParams.get('min_price')}&`
             : ''}{$page.url.searchParams.get('max_price')
             ? `max_price=${$page.url.searchParams.get('max_price')}&`
@@ -101,7 +101,7 @@
       suffix=" лв."
       on:stop={() => {
         goto(
-          `/?${
+          `/product?${
             $page.url.searchParams.get("category")
               ? "category=" + $page.url.searchParams.get("category") + "&"
               : ""
@@ -142,7 +142,7 @@
       on:click={() => {
         $filterMinMax = [min, max, 0, 100];
         goto(
-          `/?${
+          `/product?${
             $page.url.searchParams.get("category")
               ? "category=" + $page.url.searchParams.get("category") + "&"
               : ""

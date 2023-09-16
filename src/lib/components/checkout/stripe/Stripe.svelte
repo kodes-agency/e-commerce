@@ -59,7 +59,7 @@
       // @ts-ignore
       document.forms["checkout-form"].elements["payment_id"].value = result.paymentIntent.id
       // @ts-ignore
-      // document.forms["checkout-form"].submit()
+      document.forms["checkout-form"].submit()
     }
   }
 </script>

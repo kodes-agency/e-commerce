@@ -8,18 +8,18 @@
   import OrderSummary from "$lib/components/checkout/forms/OrderSummary.svelte";
   import EmptyCart from "$lib/components/checkout/EmptyCart.svelte";
   import DeliveryForm from "$lib/components/checkout/forms/DeliveryForm.svelte";
-  
-  async function checkoutDetails(){
-    return $cartStore = await getCart();
-  }
+  import { onMount } from "svelte";
 
-  let paymentReadiness: boolean = false
   let chosenPayment: any;
   let companyInvoice: string;
+
+  onMount(async ()=>{
+    $cartStore = await getCart();
+  })
 </script>
 
-<section class="flex flex-col-reverse md:flex-col py-10 pb-32 md:pb-0">
-  {#await checkoutDetails()}
+<section class="flex flex-col-reverse md:flex-col pb-32 md:pb-0">
+  {#await $cartStore}
     ...loading
   {:then cart}
     {#if cart.items.length > 0}
@@ -28,16 +28,16 @@
           name="checkout-form"
           method="POST"
           use:enhance
-          class="flex-col w-full md:w-2/4 lg:w-3/5 space-y-2 md:space-y-4 p-4 md:p-5 lg:p-10"
+          class="flex-col w-full md:w-2/4 lg:w-3/5 space-y-2 md:space-y-4 p-4 md:p-5 lg:p-14 lg:py-32 md:py-24"
         >
-          <DeliveryForm/>
+          <DeliveryForm chosenPaymentMethod={chosenPayment}/>
           <PaymentMethod bind:chosenPaymentMethod={chosenPayment} />
     
           <InvoiceShipping bind:companyInvoice />
           {#if companyInvoice} <InvoiceDetails /> {/if}
         </form>
       <!-- ORDER SUMMARY -->
-      <OrderSummary {cart} chosenPaymentMethod={chosenPayment} paymentReadiness={paymentReadiness} />
+      <OrderSummary {cart} chosenPaymentMethod={chosenPayment} />
     {:else}
       <EmptyCart />
     {/if}

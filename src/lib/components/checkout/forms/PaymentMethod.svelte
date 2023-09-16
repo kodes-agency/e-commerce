@@ -26,9 +26,10 @@
           class="sr-only peer"
           aria-labelledby="size-choice-1-label"
           disabled={!paymentMethod.available}
+          required
         />
         <span
-          class="flex flex-col w-full h-full p-5 pointer-events-none -inset-px border-4 peer-checked:border-blue-500 peer-disabled:bg-gray-300 peer-checked:bg-blue-100 peer-disabled:text-gray-500"
+          class="flex flex-col w-full h-full p-5 pointer-events-none -inset-px border-4 peer-checked:border-[var(--yellow-color)] peer-disabled:bg-gray-300 peer-checked:bg-[var(--light-yellow-color)] peer-disabled:text-gray-500"
           aria-hidden="true"
         >
           <div class="flex items-center space-x-2">

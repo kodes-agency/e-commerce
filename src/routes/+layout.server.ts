@@ -1,6 +1,7 @@
 /** @type {import('@sveltejs/kit').Load} */
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 import { getClient } from "$lib/functions/getClient";
+import { cartStore } from '$lib/store/store.js';
 import query from "$lib/queries/layoutQuery.js";
 
 export const load = async ({ fetch, cookies }) => {

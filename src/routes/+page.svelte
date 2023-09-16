@@ -44,7 +44,7 @@
   <ProductGrid products={data.products} />
   <a
     class="uppercase text-center border border-[var(--black-color)] py-2 px-10 hover:bg-[var(--yellow-color)]"
-    href="/product">Всички продукти</a
+    href="/product?order=desc&orderby=popularity">Всички продукти</a
   >
   <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
     {#each data.categories as category}

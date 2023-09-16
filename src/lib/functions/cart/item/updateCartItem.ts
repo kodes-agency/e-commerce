@@ -20,20 +20,21 @@ export async function updateItem(item: CartItem) {
     if (data.error || data.message) {
       toastStore.trigger({
         message: data.error || data.message,
-        background: "variant-filled-error",
+        background: "bg-[var(--magenta-color)]",
       });
     } else {
       cartStore.set(await data);
       toastStore.trigger({
         message: `Променихме стойността на ${item.name} във вашата количка`,
-        background: "variant-filled-primary",
+        background: "bg-[var(--cyan-color)]",
+        timeout: 2500
       });
     }
     return;
   } catch (er: any) {
     toastStore.trigger({
       message: er.message,
-      background: "variant-filled-error",
+      background: "bg-[var(--magenta-color)]",
     });
     return { error: er.message };
   }

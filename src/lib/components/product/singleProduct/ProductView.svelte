@@ -9,6 +9,8 @@
   import { addItem } from "$lib/functions/cart/item/addCartItem.js";
   import type { Order } from "$lib/types/types";
   import Category from "./elements/Category.svelte";
+  import { invalidateAll } from "$app/navigation";
+  import ProductGrid from "../featuredGellery/ProductGrid.svelte";
 
   export let product: any;
   export let variations: any
@@ -82,9 +84,13 @@
           text="Добави в количка"
           on:order={async () => {
             await addItem(order);
+            invalidateAll
           }}
         />
       </div>
     </div>
   </div>
+  <ProductGrid 
+    products={[]}
+  />
 </section>

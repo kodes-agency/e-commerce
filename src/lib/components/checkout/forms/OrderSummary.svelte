@@ -4,10 +4,10 @@
   import { priceFormat } from "$lib/functions/global/priceFormat.js";
   import { modalStore } from "@skeletonlabs/skeleton";
   import type { ModalSettings } from "@skeletonlabs/skeleton";
+  import { checkoutEnabled } from "$lib/store/store";
 
   export let cart: any;
   export let chosenPaymentMethod: string;
-  export let paymentReadiness: boolean
 
   const modal: ModalSettings = {
     type: "component",
@@ -16,7 +16,7 @@
 </script>
 
 <div id="cart" class="w-full md:w-2/4 lg:w-2/5 md:fixed top-0 right-0 z-1">
-  <div class="flex flex-col w-full p-2 lg:p-10 bg-white md:h-screen">
+  <div class="flex flex-col w-full p-2 pt-16 md:pt-0 lg:p-10 bg-white md:h-screen">
     <div class="pointer-events-auto w-sreen h-full">
       <div class="flex flex-col bg-white h-full">
         <div class="flex-1 md:overflow-y-auto px-1 sm:px-4 py-6">
@@ -80,7 +80,7 @@
           </div>
           <div class="mt-4">
             <button
-              
+              disabled={!$checkoutEnabled}
               type="button"
               class="hidden md:flex items-center justify-center bg-indigo-600 px-6 py-3 mb-10 md:mb-0 text-base font-medium text-white shadow-sm hover:bg-indigo-700 w-full"
               on:click={({ }) => {
@@ -100,6 +100,7 @@
 </div>
 <div class="p-4 fixed bottom-0 bg-white w-full md:hidden">
   <button
+    disabled={!$checkoutEnabled}
     type="button"
     class="flex z-10 items-center justify-center p-3 bg-indigo-600 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700 w-full"
     on:click={({ target }) => {

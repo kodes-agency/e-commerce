@@ -2,6 +2,7 @@ import { json } from '@sveltejs/kit'
 import { z } from 'zod';
 import { PUBLIC_API_ENDPOINT, PUBLIC_DOMAIN } from '$env/static/public';
 import * as set_cookie_parser from 'set-cookie-parser';
+import { cartStore } from '$lib/store/store.js';
 
 export async function POST({request, cookies}){
 
@@ -75,6 +76,8 @@ export async function POST({request, cookies}){
     })
 
     const data = await response.json()
+
+    cartStore.set(data)
 
     return json( data )
 }

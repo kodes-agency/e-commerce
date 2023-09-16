@@ -3,6 +3,9 @@
   import Select from "svelte-select";
   import { slide } from "svelte/transition";
   import { page } from "$app/stores";
+  import { checkoutEnabled } from "$lib/store/store";
+
+  export let chosenPaymentMethod: any
 
   let officeDelivery: any;
   let country: any;
@@ -10,6 +13,32 @@
   let office: any;
   let street: any;
   let quarter: any;
+  let street_number: any
+  let first_name = $page?.data?.form?.billing_address.first_name || ""
+  let last_name = $page?.data?.form?.billing_address.last_name || ""
+  let phone_number = $page?.data?.form?.billing_address.phone || ""
+  let email = $page?.data?.form?.billing_address.email || ""
+
+  let disabled = {}
+
+  $: disabled = {
+    firstName: first_name ? true : null,
+    lastName: last_name ? true : null,
+    email: email ? true : null,
+    phoneNumber: phone_number ? true : null,
+    address: addressDeliveryString || officeDeliveryString ? true : null,
+    delivery: officeDelivery ? true : null,
+    paymentMethod: chosenPaymentMethod ? true : null
+  }
+
+  $: $checkoutEnabled = Object.values(disabled).every(value => value);
+
+
+  let addressDeliveryString:string
+  let officeDeliveryString: string
+  $: office ? officeDeliveryString = "Офис на Еконт: "+office.label : officeDeliveryString=""
+  $: street ? addressDeliveryString = "Aдрес за доставка: "+(quarter ? quarter.label : "")+" ул."+street.label+" "+"№"+street_number : addressDeliveryString=""
+
 
   const url =
     "http://demo.econt.com/ee/services/Nomenclatures/NomenclaturesService";
@@ -117,6 +146,7 @@
       label="Доставка до офис"
       value="1"
       bind:binder={officeDelivery}
+      required={true}
     />
     <RadioButtion
       id="address"
@@ -124,6 +154,7 @@
       label="Доставка до адрес"
       value="0"
       bind:binder={officeDelivery}
+      required={true}
     />
   </div>
   <div class="flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:space-x-4 lg:space-x-10 items-center">
@@ -136,7 +167,7 @@
         class="form-input bg-transparent px-3 min-w-0 w-full"
         name="billing_first_name"
         id="billing_first_name"
-        value={$page?.data?.form?.billing_address.first_name || ""}
+        bind:value={first_name}
         required
       />
     </div>
@@ -148,7 +179,7 @@
         class="form-input bg-transparent px-3 w-full"
         name="billing_last_name"
         id="billing_last_name"
-        value={$page?.data?.form?.billing_address.last_name || ""}
+        bind:value={last_name}
         required
       />
     </div>
@@ -161,7 +192,7 @@
         class="form-input bg-transparent px-3 w-full"
         name="billing_email"
         id="billing_email"
-        value={$page?.data?.form?.billing_address.email || ""}
+        bind:value={email}
         required
       />
     </div>
@@ -172,7 +203,7 @@
         class="form-input bg-transparent px-3 w-full"
         name="billing_phone"
         id="billing_phone"
-        value={$page?.data?.form?.billing_address.phone || ""}
+        bind:value={phone_number}
         required
       />
     </div>
@@ -207,7 +238,6 @@
       {:then items}
         <Select
           {items}
-          name="city"
           searchable={true}
           placeholder="Изберете"
           required
@@ -247,20 +277,22 @@
             --border="1px solid black"
             --list-border-radius="0 0 0 0"
             --background="transparent"
+            --item-height="auto"
+            --item-line-height="auto"
+            --width="85vw"
             {items}
             required
             searchable={true}
             placeholder="Изберете офис"
-            name="office"
             bind:value={office}
-            --item-height="auto"
-            --item-line-height="auto"
           >
             <div slot="item" class="item" let:item>
               {item.label}
             </div>
           </Select>
         {/await}
+        <input type="text" hidden name="billing_address_1" bind:value={officeDeliveryString}>
+        <input type="text" hidden name="billing_city" value="----">
       </div>
     {/if}
   {/if}
@@ -268,7 +300,7 @@
     {#if city}
       <div
         transition:slide
-        class="flex flex-col sm:flex-row sm:space-x-10 items-center"
+        class="flex flex-col sm:flex-row sm:space-x-10"
       >
         <div class="flex flex-col w-full">
           {#await getData("getQuarters", country?.value, city?.value)}
@@ -289,12 +321,12 @@
               --border="1px solid black"
               --list-border-radius="0 0 0 0"
               --background="transparent"
-              required
+              --width="85vw"
               {items}
-              name="quarter"
               searchable={true}
               placeholder="Изберете квартал"
               bind:value={quarter}
+              
             />
           {/await}
         </div>
@@ -317,8 +349,8 @@
               --border="1px solid black"
               --list-border-radius="0 0 0 0"
               --background="transparent"
+              --width="85vw"
               {items}
-              name="address_1"
               searchable={true}
               placeholder="Изберете адрес"
               required
@@ -333,22 +365,29 @@
           {/await}
         </div>
         <div class="flex flex-col w-2/5">
-          <label class="" for="street_number">№</label>
+          <label class="" for="street_number">№ номер</label>
           <input
             type="text"
             class="form-input bg-transparent px-3 w-full"
-            name="street_number"
             id="street_number"
+            bind:value={street_number}
             required
           />
         </div>
       </div>
+      <input type="text" hidden name="billing_city" bind:value={city.label}>
+      <input type="text" hidden name="billing_address_1" bind:value={addressDeliveryString}>
     {/if}
   {/if}
+  <div class="flex flex-col">
+  <label class="" for="street_number">Допълнителна информация</label>
+  <textarea rows="5" cols="50" class="form-textarea h-20 w-full bg-transparent" name="customer_note" />
+  </div>
 </fieldset>
 
 <style lang="postcss">
   .item {
+    max-width: 300px;
     min-height: 20px;
     padding: 10px 0;
     line-height: 16px;

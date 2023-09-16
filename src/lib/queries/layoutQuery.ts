@@ -17,7 +17,7 @@ export default function () {
                         emailName
                         emailLink
                         phoneName
-                        phoneLink
+                        phoneLink 
                     }
                 }
             }

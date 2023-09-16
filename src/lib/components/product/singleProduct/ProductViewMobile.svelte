@@ -8,6 +8,7 @@
   import type { Order } from "$lib/types/types";
   import { priceFormat } from "$lib/functions/global/priceFormat";
   import Category from "./elements/Category.svelte";
+  import { invalidateAll } from "$app/navigation";
 
   export let product: any;
   export let variations: any;
@@ -53,6 +54,7 @@
     text="Добави в количка ({priceFormat(product.prices.sale_price)}{product.prices.currency_suffix})"
     on:order={async () => {
       await addItem(order);
+      invalidateAll
     }}
   />
 </div>

@@ -17,20 +17,21 @@ export async function deleteItem(item: CartItem) {
     if (data.error || data.message) {
       toastStore.trigger({
         message: data.error || data.message,
-        background: "variant-filled-error",
+        background: "bg-[var(--magenta-color)]",
       });
     } else {
       cartStore.set(await data);
       toastStore.trigger({
         message: `Премахнахме ${item.name} от вашата количка`,
-        background: "variant-filled-warning",
+        background: "bg-[var(--yellow-color)]",
+        timeout: 2500
       });
     }
     return;
   } catch (er: any) {
     toastStore.trigger({
       message: er.message,
-      background: "variant-filled-error",
+      background: "bg-[var(--magenta-color)]",
     });
     return { error: er.message };
   }

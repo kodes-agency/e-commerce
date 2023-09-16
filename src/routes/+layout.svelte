@@ -17,9 +17,12 @@
   import Header from "$lib/components/global/Header.svelte";
   import ProgressBar from "$lib/components/global/ProgressBar.svelte";
   import Footer from "$lib/components/global/Footer.svelte";
+  import { cartStore } from "$lib/store/store";
   import { page } from "$app/stores";
+  export let data
 
-  console.log($page)
+  $cartStore = data.cart
+  
 
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 

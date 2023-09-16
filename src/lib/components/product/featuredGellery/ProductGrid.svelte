@@ -1,5 +1,5 @@
 <script lang="ts">
-  import GridItem from "./GridItem.svelte";
+  import GridItem from "../productGallery/GridItem.svelte";
   export let products: any;
 </script>
 
@@ -16,6 +16,7 @@
         alt={product.images[0].alt}
         onSale={product.on_sale}
         salePrice={product.prices.sale_price}
+        tags={product.tags}
       />
     {/each}
   </div>

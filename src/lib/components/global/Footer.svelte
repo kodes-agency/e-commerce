@@ -3,8 +3,6 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
 
-  console.log($page);
-
   let subscriptonWrapper;
   let user_email: string;
   let links: any;
@@ -60,35 +58,29 @@
   >
     <div class="flex flex-col items-center md:items-start space-y-4">
       <a
-        class="footer-links transition-all text-[var(--white-color)] text-xl"
-        href="/"
-        >Начало</a
+        class="footer-links transition-all text-[var(--white-color)] text-base"
+        href="/">начало</a
       >
       <a
-        class="footer-links transition-all text-[var(--white-color)] text-xl"
-        href="/product"
-        >Продукти</a
+        class="footer-links transition-all text-[var(--white-color)] text-base"
+        href="/product?order=desc&orderby=popularity">продукти</a
       >
       <a
-        class="footer-links transition-all text-[var(--white-color)] text-xl"
-        href="/policy"
-        >Общи условия</a
+        class="footer-links transition-all text-[var(--white-color)] text-base"
+        href="/">често задавани въпроси</a
       >
       <a
-      class="footer-links transition-all text-[var(--white-color)] text-xl"
-      href="/gdpr"
-      >Политика за личните данни</a
-    >
-    <a
-    class="footer-links transition-all text-[var(--white-color)] text-xl"
-    href="/cookies"
-    >Политика за бисквитките</a
-  >
-  <a
-  class="footer-links transition-all text-[var(--white-color)] text-xl"
-  href="/faq"
-  >Често задавани въпроси</a
->
+        class="footer-links transition-all text-[var(--white-color)] text-base"
+        href="/policy">общи условия</a
+      >
+      <a
+        class="footer-links transition-all text-[var(--white-color)] text-base"
+        href="/gdpr">политика за личните данни</a
+      >
+      <a
+        class="footer-links transition-all text-[var(--white-color)] text-base"
+        href="/cookies">политика за бисквитките</a
+      >
     </div>
     <div
       class="flex flex-col items-center space-y-8 md:space-y-4 md:items-end justify-between"
@@ -98,8 +90,7 @@
           class="footer-links transition-all"
           aria-label="linkedin"
           target="_blank"
-          href={$page.data.footer?.data?.menu?.data?.attributes
-            ?.linkedinLink}
+          href={$page.data.footer?.data?.menu?.data?.attributes?.linkedinLink}
         >
           <svg
             width="20"
@@ -118,8 +109,7 @@
           class="footer-links transition-all"
           aria-label="instagram"
           target="_blank"
-          href={$page.data.footer?.data?.menu?.data?.attributes
-            ?.instagramLink}
+          href={$page.data.footer?.data?.menu?.data?.attributes?.instagramLink}
         >
           <svg
             width="21"
@@ -138,8 +128,7 @@
           class="footer-links transition-all"
           aria-label="facebook"
           target="_blank"
-          href={$page.data.footer?.data?.menu?.data?.attributes
-            ?.facebookLink}
+          href={$page.data.footer?.data?.menu?.data?.attributes?.facebookLink}
         >
           <svg
             width="12"
@@ -171,8 +160,7 @@
       </div>
       <div class="flex flex-col space-y-2 text-center md:text-end">
         <a
-          href={$page.data.footer?.data?.menu?.data?.attributes
-            ?.addressLink}
+          href={$page.data.footer?.data?.menu?.data?.attributes?.addressLink}
           target="_blank"
           class="text-[var(--white-color)] text-md footer-links transition-all"
           >{$page.data.footer?.data?.menu?.data?.attributes?.addressName}</a
@@ -197,8 +185,7 @@
             <button
               class="bg-[var(--yellow-color)] h-8 w-56 border-2 border-[var(--white-color)]"
               type="submit"
-              on:click={userSubscribe}
-              >искам да се абонирам</button
+              on:click={userSubscribe}>искам да се абонирам</button
             >
           </div>
         {/if}
