@@ -7,13 +7,12 @@
   import { priceFormat } from "$lib/functions/global/priceFormat";
   import { SyncLoader } from 'svelte-loading-spinners'
 
-  let { totals } = $cartStore
-
   let stripe: any = null;
   let error: any = null;
   let cardElement: any;
   let name: any
   let processing = false;
+  console.log($cartStore)
 
   onMount(async () => {
     stripe = await loadStripe(PUBLIC_STRIPE_KEY);
@@ -80,20 +79,20 @@
           name="name"
           placeholder="Имена на картодържател"
           disabled={processing}
-          class="form-input p-3 rounded-sm text-sm"
+          class="form-input p-3 rounded-sm text-base"
         />
         <CardNumber
           bind:element={cardElement}
           placeholder="Номер на карта"
-          classes={{ base: "input rounded-sm bg-white p-3" }}
+          classes={{ base: "input text-base rounded-sm bg-white p-3" }}
         />
 
         <div class="flex space-x-2">
           <CardExpiry 
-            classes={{ base: "input rounded-sm bg-white p-3" }}
+            classes={{ base: "input text-base rounded-sm bg-white p-3" }}
             placeholder="ММ / ГГ"
           />
-          <CardCvc classes={{ base: "input rounded-sm bg-white p-3" }} />
+          <CardCvc classes={{ base: "input text-base rounded-sm bg-white p-3" }} />
         </div>
 
         <button
@@ -104,7 +103,7 @@
           <p>Обработка</p>
           <SyncLoader size="35" color="white" unit="px" duration="1s"/> 
           {:else}
-          Плащане ({priceFormat(totals.total_price)+totals.currency_suffix})
+          Плащане 
           {/if}
         </button>
       </form>
