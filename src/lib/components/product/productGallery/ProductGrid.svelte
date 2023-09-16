@@ -5,7 +5,7 @@
 </script>
 
 <div
-  class="mt-6 grid grid-cols-2 p-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 w-full"
+  class="mt-6 grid grid-cols-2 p-2 md:p-10 lg:p-0 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 w-full"
 >
   {#each products as product}
     <GridItem

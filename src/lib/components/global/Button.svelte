@@ -16,7 +16,7 @@
   <a class={style} {href}>{text}</a>
 {:else if type == "add-to-cart-button"}
   <button
-    class="{style} md:border md:border-[var(--black-color)] font-bold md:font-normal fixed bottom-0 left-0 md:static h-12 md:h-auto z-20 w-full md:w-fit"
+    class="{style} md:border md:border-[var(--black-color)] font-bold md:font-normal fixed bottom-0 left-0 md:static h-16 md:h-auto z-20 w-full md:w-fit"
     disabled={attributes.length > 0 && !variationChange}
     on:click={() => {
       dispatch("order", { ordered: true });

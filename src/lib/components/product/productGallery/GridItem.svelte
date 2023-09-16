@@ -34,7 +34,7 @@
   {/if}
   <article class="flex flex-col justify-between space-y-2">
     <div
-      class="flex items-center justify-center border border-black aspect-square"
+      class="flex items-center justify-center border border-black md:aspect-square"
     >
       <Img {src} {alt} style="object-contain max-w-100px md:max-w-[200px] h-[200px] mix-blend-multiply" />
     </div>

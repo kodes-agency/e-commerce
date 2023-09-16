@@ -279,7 +279,7 @@
             --background="transparent"
             --item-height="auto"
             --item-line-height="auto"
-            --width="85vw"
+            --width="300px"
             {items}
             required
             searchable={true}
@@ -321,7 +321,7 @@
               --border="1px solid black"
               --list-border-radius="0 0 0 0"
               --background="transparent"
-              --width="85vw"
+              --width="300px"
               {items}
               searchable={true}
               placeholder="Изберете квартал"
@@ -349,7 +349,7 @@
               --border="1px solid black"
               --list-border-radius="0 0 0 0"
               --background="transparent"
-              --width="85vw"
+              --width="300px"
               {items}
               searchable={true}
               placeholder="Изберете адрес"
@@ -365,7 +365,7 @@
           {/await}
         </div>
         <div class="flex flex-col w-2/5">
-          <label class="" for="street_number">№ номер</label>
+          <label class="" for="street_number">№</label>
           <input
             type="text"
             class="form-input bg-transparent px-3 w-full"

@@ -13,9 +13,7 @@
   let chosenPayment: any;
   let companyInvoice: string;
 
-  onMount(async ()=>{
-    $cartStore = await getCart();
-  })
+  $cartStore = getCart();
 </script>
 
 <section class="flex flex-col-reverse md:flex-col pb-32 md:pb-0">
