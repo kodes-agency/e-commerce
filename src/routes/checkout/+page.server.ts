@@ -144,7 +144,6 @@ export const actions = {
     );
 
     const data: any = await responseOrder.json();
-    console.log(data)
 
     let url = `/checkout/success?first_name=${onSuccessDate.first_name}&last_name=${onSuccessDate.last_name}&order_id=${data.order_id}&email=${onSuccessDate.email}&payment_method=${onSuccessDate.paymentMethod}`
 

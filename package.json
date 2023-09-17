@@ -31,6 +31,7 @@
   "type": "module",
   "dependencies": {
     "@apollo/client": "^3.8.3",
+    "@beyonk/gdpr-cookie-consent-banner": "^10.2.1",
     "@floating-ui/dom": "^1.5.1",
     "@mailchimp/mailchimp_marketing": "^3.0.80",
     "@tailwindcss/container-queries": "^0.1.1",
