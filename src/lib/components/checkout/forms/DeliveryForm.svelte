@@ -40,8 +40,7 @@
   $: street ? addressDeliveryString = "Aдрес за доставка: "+(quarter ? quarter.label : "")+" ул."+street.label+" "+"№"+street_number : addressDeliveryString=""
 
 
-  const url =
-    "http://demo.econt.com/ee/services/Nomenclatures/NomenclaturesService";
+  const url ="https://demo.econt.com/ee/services/Nomenclatures/NomenclaturesService";
 
   function handleRequestType(type: any, countryCode?: any, cityID?: any) {
     const validateAddress = [
