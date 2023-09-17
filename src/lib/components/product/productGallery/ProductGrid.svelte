@@ -1,7 +1,6 @@
 <script lang="ts">
   import GridItem from "./GridItem.svelte";
   export let products: any;
-  console.log(products)
 </script>
 
 <div

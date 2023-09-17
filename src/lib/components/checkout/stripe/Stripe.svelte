@@ -12,7 +12,6 @@
   let cardElement: any;
   let name: any
   let processing = false;
-  console.log($cartStore)
 
   onMount(async () => {
     stripe = await loadStripe(PUBLIC_STRIPE_KEY);
@@ -47,7 +46,7 @@
     });
 
     // log results, for debugging
-    console.log(result)
+    // console.log(result)
 
 
     if (result.error) {

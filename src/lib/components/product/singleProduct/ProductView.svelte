@@ -86,7 +86,6 @@
           type="add-to-cart-button"
           text="Добави в количка"
           on:order={async () => {
-            console.log($page.data)
             await addItem(order);
             invalidateAll
           }}

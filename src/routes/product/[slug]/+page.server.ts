@@ -28,8 +28,6 @@ export const load = async ({ fetch, params }) => {
     // @ts-ignore
     const featuredProducts = products.filter(product=>{return decodeURIComponent(product.slug) !== params.slug}).sort(() => 0.5 - Math.random()).slice(0,4)
     
-    console.log(product)
-
     if(product.variations.length > 0) {
       const variationsIds = product.variations.map((variation:any)=>{
         return variation.id
