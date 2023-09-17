@@ -37,6 +37,7 @@
     "gsap": "^3.12.2",
     "set-cookie-parser": "^2.6.0",
     "stripe": "^12.18.0",
+    "svelte-adapter-bun": "^0.5.0",
     "svelte-select": "^5.6.1",
     "svelte-stripe": "^0.0.22",
     "zod": "^3.21.4"
