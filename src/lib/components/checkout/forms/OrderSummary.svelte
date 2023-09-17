@@ -80,6 +80,7 @@
           </div>
           <div class="mt-4">
             <button
+              disabled={!$checkoutEnabled}
               type="button"
               class="hidden md:flex items-center justify-center bg-indigo-600 px-6 py-3 mb-10 md:mb-0 text-base font-medium text-white shadow-sm hover:bg-indigo-700 w-full"
               on:click={({ }) => {
@@ -98,8 +99,8 @@
   </div>
 </div>
 <div class="p-4 fixed bottom-0 bg-white w-full md:hidden">
-  <!-- disabled={!$checkoutEnabled} -->
   <button
+    disabled={!$checkoutEnabled}
     type="button"
     class="flex z-10 items-center justify-center p-3 bg-indigo-600 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700 w-full"
     on:click={({ target }) => {

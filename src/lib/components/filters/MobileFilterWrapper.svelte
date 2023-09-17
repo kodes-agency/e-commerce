@@ -1,4 +1,5 @@
 <script lang="ts">
+  //@ts-expect-error
   import RangeSlider from "svelte-range-slider-pips";
   import { filterMinMax, filterHeading } from "$lib/store/store";
   import { page } from "$app/stores";

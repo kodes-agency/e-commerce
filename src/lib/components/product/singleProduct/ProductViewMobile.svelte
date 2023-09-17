@@ -13,14 +13,15 @@
   export let product: any;
   export let variations: any;
 
+  let order: Order
 
-  let order: Order = {
+  $:order = {
     id: product.id,
     name: product.name,
     quantity: 1,
   };
 
-  let productData = {
+  $: productData = {
     min: 1,
     max: product.add_to_cart.maximum,
   };

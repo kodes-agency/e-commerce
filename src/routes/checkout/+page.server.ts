@@ -57,15 +57,15 @@ export const load = async ({ fetch, cookies }) => {
 
 export const actions = {
   default: async ({ cookies, fetch, request }) => {
-    // const formData = await request.formData();
+    const formData = await request.formData();
 
-    // let companyDetails = {
-    //   company: formData.get("company_name"),
-    //   company_tax_number: formData.get("company_tax_number"),
-    //   company_city: formData.get("company_city"),
-    //   company_address: formData.get("company_address"),
-    //   company_country: formData.get("company_country"),
-    // };
+    let companyDetails = {
+      company: formData.get("company_name"),
+      company_tax_number: formData.get("company_tax_number"),
+      company_city: formData.get("company_city"),
+      company_address: formData.get("company_address"),
+      company_country: formData.get("company_country"),
+    };
 
     // const order = {
     //   billing_address: {
@@ -96,36 +96,37 @@ export const actions = {
 
     const order = {
       billing_address: {
-        first_name: 'dasda',
-        last_name: 'dasda',
-        address_1: 'dasda',
-        city: 'dasda',
-        email: 'dasda@abv.bg',
+        first_name: formData.get("billing_first_name"),
+        last_name: formData.get("billing_last_name"),
+        address_1: formData.get("billing_address_1"),
+        address_2: formData.get("payment_id") ? "Stripe ID: "+formData.get("payment_id") : "",
+        city: formData.get("billing_city"),
+        email: formData.get("billing_email"),
         postcode: "0000",
         country: "BG",
-        phone: '321312312',
+        phone: formData.get("billing_phone"),
       },
       shipping_address: {
-        first_name: 'dasda',
-        last_name: 'dasda',
-        address_1: 'dasda',
-        city: 'dasda',
+        first_name: formData.get("billing_first_name"),
+        last_name: formData.get("billing_last_name"),
+        address_1: formData.get("billing_address_1"),
+        city: formData.get("billing_city"),
         country: "BG",
         postcode: "1000",
       },
-      // customer_note: (companyDetails.company
-      //   ? `Данни за фактура: \n Компания: ${companyDetails.company} \n ЕИК: ${companyDetails.company_tax_number} \n Град: ${companyDetails.company_city} \n Адрес: ${companyDetails.company_address} \n Държава: ${companyDetails.company_country} \n`
-      //   : "") +"\n"+"Бележка от клиента: "+formData.get("customer_note"),
+      customer_note: (companyDetails.company
+        ? `Данни за фактура: \n Компания: ${companyDetails.company} \n ЕИК: ${companyDetails.company_tax_number} \n Град: ${companyDetails.company_city} \n Адрес: ${companyDetails.company_address} \n Държава: ${companyDetails.company_country} \n`
+        : "") +"\n"+"Бележка от клиента: "+formData.get("customer_note"),
       create_account: false,
       payment_method: "cod",
     };
 
-    // const onSuccessDate = {
-    //   first_name: formData.get("billing_first_name"),
-    //   last_name: formData.get("billing_last_name"),
-    //   email: formData.get("billing_email"),
-    //   paymentMethod: formData.get("payment_method"),
-    // }
+    const onSuccessDate = {
+      first_name: formData.get("billing_first_name"),
+      last_name: formData.get("billing_last_name"),
+      email: formData.get("billing_email"),
+      paymentMethod: formData.get("payment_method"),
+    }
 
     const headers: any = { 'Content-Type': 'application/json' };
 
@@ -146,38 +147,38 @@ export const actions = {
 
     console.log(data)
 
-  //   let url = `/checkout/success?first_name=${onSuccessDate.first_name}&last_name=${onSuccessDate.last_name}&order_id=231&email=${onSuccessDate.email}&payment_method=${onSuccessDate.paymentMethod}`
+    let url = `/checkout/success?first_name=${onSuccessDate.first_name}&last_name=${onSuccessDate.last_name}&order_id=231&email=${onSuccessDate.email}&payment_method=${onSuccessDate.paymentMethod}`
 
-  //   if(data.status == "completed" || data.status == "processing"){
-  //     cartStore.set([])
-  //     throw redirect(301, url)
-  //   }
+    if(data.status == "completed" || data.status == "processing"){
+      cartStore.set([])
+      throw redirect(301, url)
+    }
 
-  //   if (data.status === "completed") {
-  //     const removeItems = await fetch(
-  //       "https://shop.fragment.bg/wp-json/wc/store/v1/cart/items",
-  //       {
-  //         method: "DELETE",
-  //         headers: headers,
-  //       }
-  //     );
-  //   }
+    if (data.status === "completed") {
+      const removeItems = await fetch(
+        "https://shop.fragment.bg/wp-json/wc/store/v1/cart/items",
+        {
+          method: "DELETE",
+          headers: headers,
+        }
+      );
+    }
 
-  //   const headerCookies: any = set_cookie_parser.parse(
-  //     set_cookie_parser.splitCookiesString(
-  //       responseOrder.headers.get("set-cookie")
-  //     )
-  //   );
+    const headerCookies: any = set_cookie_parser.parse(
+      set_cookie_parser.splitCookiesString(
+        responseOrder.headers.get("set-cookie")
+      )
+    );
 
-  //   headerCookies.forEach((cookie: any) => {
-  //     cookies.set(cookie.name, cookie.value, {
-  //       path: cookie.path || "/",
-  //       expires: cookie?.expires,
-  //       maxAge: cookie?.maxAge || 60 * 60 * 24 * 7,
-  //       secure: false,
-  //       httpOnly: true,
-  //     });
-  //   });
+    headerCookies.forEach((cookie: any) => {
+      cookies.set(cookie.name, cookie.value, {
+        path: cookie.path || "/",
+        expires: cookie?.expires,
+        maxAge: cookie?.maxAge || 60 * 60 * 24 * 7,
+        secure: false,
+        httpOnly: true,
+      });
+    });
 
   //   cookies.set("cart-token", responseOrder.headers.get("cart-token"), {
   //     path: "/",
