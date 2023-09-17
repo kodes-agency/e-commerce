@@ -162,7 +162,7 @@ export const actions = {
         }
       );
     }
-    
+
     const headerCookies: any = set_cookie_parser.parse(
       set_cookie_parser.splitCookiesString(
         responseOrder.headers.get("set-cookie")
