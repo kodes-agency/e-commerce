@@ -35,8 +35,8 @@
 
   .wrapper {
     background: var(--white-color);
-    padding: 10vw;
-    padding-top: 100px;
+    padding: 15vw;
+    padding-top: 20vh;
   }
 
   @media only screen and (max-width: 600px) {

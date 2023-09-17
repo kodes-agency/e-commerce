@@ -294,7 +294,7 @@
           linkMouseLeaveAnimation();
         }}
         data-sveltekit-preload-data="tap"
-        href="/"
+        href="/faq"
         >често задавани въпроси
       </a>
       <a
@@ -309,7 +309,7 @@
         on:mouseleave={() => {
           linkMouseLeaveAnimation();
         }}
-        href="https://fragment.bg/"
+        href="https://stagger.fragment.bg"
         >към fragment.bg
       </a>
     </div>

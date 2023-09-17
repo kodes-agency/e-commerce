@@ -67,7 +67,7 @@
       >
       <a
         class="footer-links transition-all text-[var(--white-color)] text-base"
-        href="/">често задавани въпроси</a
+        href="/faq">често задавани въпроси</a
       >
       <a
         class="footer-links transition-all text-[var(--white-color)] text-base"
