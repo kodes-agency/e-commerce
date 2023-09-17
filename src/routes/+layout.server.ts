@@ -21,13 +21,15 @@ export const load = async ({ fetch, cookies }) => {
         sameSite: 'lax'
     })
 
-    cookies.set('cart-token', response.headers.get('cart-token'), {
-        path: '/',
-        maxAge: 60 * 60 * 24 * 7,
-        secure: false,
-        httpOnly: true,
-        sameSite: 'lax'
-    })
+    if(!cookies.get('cart-token')){
+        cookies.set('cart-token', response.headers.get('cart-token'), {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7,
+            secure: false,
+            httpOnly: true,
+            sameSite: 'lax'
+        })
+    }
 
     const layoutData = getClient().query({
         query: query()

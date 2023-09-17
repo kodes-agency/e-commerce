@@ -55,22 +55,24 @@ export async function POST({request, cookies}){
 
     const headerCookies = set_cookie_parser.parse(set_cookie_parser.splitCookiesString(response.headers.get('set-cookie')))
 
+
     headerCookies.forEach((cookie) => {
         cookies.set(cookie.name, cookie.value, {
-            path: cookie.path,
+            domain: cookie?.domain,
+            path: cookie?.path,
             expires: cookie?.expires,
-            maxAge: cookie?.maxAge,
-            secure: cookie?.secure,
-            httpOnly: cookie?.httpOnly
+            maxAge: cookie?.maxAge || 60 * 60 * 24 * 7,
+            secure: false,
+            httpOnly: true
         })
     })
 
-    cookies.set('cart-token', response.headers.get('cart-token'), {
-        path: '/',
-        maxAge: 60 * 60 * 24 * 7,
-        secure: false,
-        httpOnly: false
-    })
+    // cookies.set('cart-token', response.headers.get('cart-token'), {
+    //     path: '/',
+    //     maxAge: 60 * 60 * 24 * 7,
+    //     secure: false,
+    //     httpOnly: false
+    // })
 
     const data = await response.json()
 

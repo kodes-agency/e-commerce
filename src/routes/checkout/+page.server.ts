@@ -144,8 +144,9 @@ export const actions = {
     );
 
     const data: any = await responseOrder.json();
+    console.log(data)
 
-    let url = `/checkout/success?first_name=${onSuccessDate.first_name}&last_name=${onSuccessDate.last_name}&order_id=231&email=${onSuccessDate.email}&payment_method=${onSuccessDate.paymentMethod}`
+    let url = `/checkout/success?first_name=${onSuccessDate.first_name}&last_name=${onSuccessDate.last_name}&order_id=${data.order_id}&email=${onSuccessDate.email}&payment_method=${onSuccessDate.paymentMethod}`
 
     if(data.status == "completed" || data.status == "processing"){
       cartStore.set([])
@@ -168,15 +169,16 @@ export const actions = {
       )
     );
 
-    headerCookies.forEach((cookie: any) => {
+    headerCookies.forEach((cookie) => {
       cookies.set(cookie.name, cookie.value, {
-        path: cookie.path || "/",
-        expires: cookie?.expires,
-        maxAge: cookie?.maxAge || 60 * 60 * 24 * 7,
-        secure: false,
-        httpOnly: true,
-      });
-    });
+          domain: cookie?.domain,
+          path: cookie?.path,
+          expires: cookie?.expires,
+          maxAge: cookie?.maxAge || 60 * 60 * 24 * 7,
+          secure: false,
+          httpOnly: true
+      })
+  })
 
   //   cookies.set("cart-token", responseOrder.headers.get("cart-token"), {
   //     path: "/",
