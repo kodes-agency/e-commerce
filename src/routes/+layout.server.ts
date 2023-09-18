@@ -28,7 +28,7 @@ export const load = async ({ fetch, cookies }) => {
   if (!cookies.get("cart-token")) {
     cookies.set("cart-token", response.headers.get("cart-token"), {
       path: "/",
-      maxAge: 60 * 60 * 24 * 7,
+      maxAge: 60 * 60 * 24 * 1,
       secure: false,
       httpOnly: true,
       sameSite: "lax",
