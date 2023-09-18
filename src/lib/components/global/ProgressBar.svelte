@@ -9,7 +9,7 @@
     var height =
       document.documentElement.scrollHeight -
       document.documentElement.clientHeight;
-    var scrolled = (winScroll / height) * 100;
+    var scrolled = 100 - (winScroll / height) * 100
     scrollBar.style.width = scrolled + "%";
   }
 
@@ -20,8 +20,8 @@
   });
 </script>
 
-<div
-  bind:this={scrollBar}
-  class="h-1.5 fixed top-0 w-full z-50 gradient"
-/>
-<div id="fixed-bar" class="bg-black h-1.5 fixed top-0 w-full z-40" />
+
+  <div
+    class="h-1.5 fixed top-0 w-full z-40 gradient"
+  />
+  <div bind:this={scrollBar} id="fixed-bar" class="bg-black h-1.5 fixed top-0 right-0 w-full z-50" />
