@@ -152,9 +152,9 @@
 
     :global(.cookieConsentToggle) {
       background-color: var(--white-color);
-      right: 15px;
+      left: 15px;
       bottom: 15px;
-      left: auto;
+      right: auto;
     }
   }
 </style>
