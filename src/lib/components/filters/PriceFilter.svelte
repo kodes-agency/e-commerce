@@ -65,6 +65,7 @@
       {max}
       float
       pips
+      pipstep={5}
       range
       bind:values={$filterMinMax}
       first="label"
