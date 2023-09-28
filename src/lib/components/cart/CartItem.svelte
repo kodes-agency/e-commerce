@@ -6,7 +6,7 @@
   import Variation from "./elements/Variation.svelte";
   import { updateItem, deleteItem } from "$lib/functions/cart/cartFunctions.js";
   import RemoveButton from "./elements/RemoveButton.svelte";
-  import { slide } from "svelte/transition";
+  import { slide } from "svelte/transition"; 
 
   export let item: any;
 
@@ -19,18 +19,22 @@
 </script>
 
 <li class="hidden sm:flex py-4 sm:py-6" transition:slide>
-  <div
-    class="flex items-center justify-center h-16 w-16 sm:h-24 sm:w-24 flex-shrink-1 overflow-hidden border border-gray-200"
-  >
-    <Img src={item.images[0].src} alt={item.images[0].alt} />
-  </div>
-
+  <a href={"/product/"+item.name.replaceAll('&#8211; ', '').replaceAll(' ', '-').toLowerCase().slice(0,40)} data-sveltekit-reload>
+    <div
+      class="flex items-center justify-center h-16 w-16 sm:h-24 sm:w-24 flex-shrink-1 overflow-hidden border border-gray-200"
+    >
+      <Img src={item.images[0].src} alt={item.images[0].alt} />
+    </div>
+  </a>
+  
   <div class="ml-4 flex flex-1 flex-col">
     <div>
       <div
         class="flex justify-between space-x-1 text-base font-medium text-gray-900"
       >
+      <a href={"/product/"+item.name.replaceAll('&#8211; ', '').replaceAll(' ', '-').toLowerCase().slice(0,40)} data-sveltekit-reload>
         <Name name={item.name} style="text-sm lg:text-base font-bold" />
+      </a>
         <Price
           total={item.totals.line_total}
           currency={item.totals.currency_suffix}
